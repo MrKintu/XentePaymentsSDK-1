@@ -14,14 +14,15 @@ import org.json.JSONObject;
 import java.util.Date;
 
 public class httpRequestClient {
-    public Token bearerToken;
-    private objectHandler objectHandler;
+    private XenteJavaSDK.objectBodies.objectHandler objectHandler;
     private JSONObject httpOptions = new JSONObject();
 
     //Class Constructor
-    public httpRequestClient(JSONObject credentialsObject) {
+    public httpRequestClient(JSONObject credentialsObject, XenteJavaSDK.objectBodies.objectHandler objectHandler) {
+        this.objectHandler = objectHandler;
         constant constant = new constant(credentialsObject);
         constant.getDomain(credentialsObject);
+        httpObject();
     }
 
     // Create a Http object for making request
@@ -44,10 +45,6 @@ public class httpRequestClient {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return httpOptions;
     }
-
-    public Token tokenStore()
-        {return bearerToken;}
 }

@@ -55,6 +55,7 @@ public class constant {
                 }
             }
 
+            //Assign the base URL.
             baseUrl = "https://" + domain + "/api/v1";
 
             // `${baseUrl}/Auth/login`; Will be used instead

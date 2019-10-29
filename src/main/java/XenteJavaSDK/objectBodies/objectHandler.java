@@ -5,21 +5,22 @@
  * Thank you.
  */
 
-package XenteJavaSDK.services;
+package XenteJavaSDK.objectBodies;
 
 //These are the import statements.
-import XenteJavaSDK.objectBodies.authCredentialsObject;
-import XenteJavaSDK.objectBodies.transactionCredentialsObject;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
 public class objectHandler {
-    String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone,
+    public String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone,
             customerEmail, customerReference, metadata, batchID, requestID;
 
     //Class Constructor
