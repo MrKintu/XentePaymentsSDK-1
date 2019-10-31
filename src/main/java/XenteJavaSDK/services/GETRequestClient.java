@@ -20,7 +20,7 @@ import java.net.URL;
 
 @Async
 public class GETRequestClient {
-    public String webLink = null;
+    public String webLink;
     public JSONObject responseBody = new JSONObject();
     private String bearerToken;
 
