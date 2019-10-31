@@ -33,7 +33,7 @@ public class objectHandler {
     }
 
     //Method that parses the Authentication Credentials
-    String authenticationObject(JSONObject object) {
+    private String authenticationObject(JSONObject object) {
         try {
             //Read data from JSON Format
             ObjectMapper mapper = new ObjectMapper();
@@ -52,10 +52,10 @@ public class objectHandler {
                 password = obj.getPassword();
                 mode = obj.getMode();
 
-                //Display the data in the console
-                System.out.println("apiKey: " + obj.getApiKey()
-                        + "\npassword: " + obj.getPassword()
-                        + "\nmode: " + obj.getMode());
+//                //Display the data in the console
+//                System.out.println("apiKey: " + obj.getApiKey()
+//                        + "\npassword: " + obj.getPassword()
+//                        + "\nmode: " + obj.getMode());
             }
         } catch (IOException e)
             { e.printStackTrace(); }
@@ -64,7 +64,7 @@ public class objectHandler {
     }
 
     //Method that parses the Transaction Details Object.
-    String transactionObject(JSONObject object) {
+    private String transactionObject(JSONObject object) {
         try {
             //Read data from JSON Format
             ObjectMapper mapper = new ObjectMapper();
@@ -90,18 +90,17 @@ public class objectHandler {
                 requestID = obj.getRequestID();
                 metadata = obj.getMetadata();
 
-                //Display the data in the console
-                System.out.println("paymentProvider: " + obj.getPaymentProvider()
-                        + "\namount: " + obj.getAmount()
-                        + "\nmessage: " + obj.getMessage()
-                        + "\ncustomerID: " + obj.getCustomerID()
-                        + "\ncustomerPhone: " + obj.getCustomerPhone()
-                        + "\ncustomerEmail: " + obj.getCustomerEmail()
-                        + "\ncustomerReference: " + obj.getCustomerReference()
-                        + "\nbatchID: " + obj.getBatchID()
-                        + "\nrequestID: " + obj.getRequestID()
-                        + "\nmetadata: " + obj.getMetadata()
-                );
+//                //Display the data in the console
+//                System.out.println("paymentProvider: " + obj.getPaymentProvider()
+//                        + "\namount: " + obj.getAmount()
+//                        + "\nmessage: " + obj.getMessage()
+//                        + "\ncustomerID: " + obj.getCustomerID()
+//                        + "\ncustomerPhone: " + obj.getCustomerPhone()
+//                        + "\ncustomerEmail: " + obj.getCustomerEmail()
+//                        + "\ncustomerReference: " + obj.getCustomerReference()
+//                        + "\nbatchID: " + obj.getBatchID()
+//                        + "\nrequestID: " + obj.getRequestID()
+//                        + "\nmetadata: " + obj.getMetadata() );
             }
         } catch (IOException e)
             { e.printStackTrace(); }

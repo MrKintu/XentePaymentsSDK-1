@@ -22,24 +22,24 @@ import java.util.Map;
 
 @Async
 public class POSTRequestClient {
-    public String webLink = null;
-    public JSONObject responseBody = new JSONObject();
-    private String bearerToken;
+    public JSONObject responseBody;
 
     //Class Constructor.
     public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException
-        { POSTMethod(credentialsObject, transactionObject, false, null); }
+        { POSTMethod(credentialsObject, transactionObject, null); }
 
-    // Create a Http object for making POST request to Xente API.
-    JSONObject POSTMethod(JSONObject credentials, JSONObject transaction, boolean newToken, String link) throws IOException, JSONException {
+    // Create a Http object for making POST HTTP request to Xente API.
+    //It takes in the credentials object, the transaction object, boolean value on whether a new token is needed
+    //and the respective URL link as parameters.
+    public JSONObject POSTMethod(JSONObject credentials, JSONObject transaction, String webLink) throws IOException, JSONException {
         //Create local variables to be used.
         objectHandler objectHandler = new objectHandler(credentials, transaction);
         tokenHandler tokenHandler = new tokenHandler(credentials, transaction);
         JSONObject object = new JSONObject();
-        link = webLink;
+        String bearerToken = tokenHandler.bearerToken;
 
         //Determine whether bearerToken is available or not
-        if(newToken = true || bearerToken.isEmpty()){
+        if(bearerToken.isEmpty()){
             tokenHandler.createToken(credentials, transaction);
             bearerToken = tokenHandler.bearerToken;
         }
@@ -55,9 +55,6 @@ public class POSTRequestClient {
             object.put("X-Correlation-ID", new Date().getTime());
             object.put("Authorization", bearerToken);
 
-            //Declare the URL to be used.
-            URL url = new URL(link);
-
             //Create Object to interact with Xente API.
             Map<String, Object> httpOptions = new LinkedHashMap<>();
             httpOptions.put("method", "POST");
@@ -72,6 +69,9 @@ public class POSTRequestClient {
             }
             byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
 
+            //Declare the URL to be used.
+            URL url = new URL(webLink);
+
             //Establish a connection with the Xente API.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -79,6 +79,13 @@ public class POSTRequestClient {
             connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
             connection.setDoOutput(true);
             connection.getOutputStream().write(postDataBytes);
+            int responseCode = connection.getResponseCode();
+
+            //Handle 401 Unauthorised error.
+            if(responseCode == 401) {
+                tokenHandler.createToken(credentials, transaction);
+                POSTMethod(credentials, transaction, webLink);
+            }
 
             //Receive the response body from the Xente API.
             Reader input = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
@@ -91,16 +98,8 @@ public class POSTRequestClient {
             System.out.println(responseBody);
         }
         //Catch & handle errors here.
-        catch (JSONException | IOException e) {
-            if(e.getMessage().equals(String.valueOf(401)))  {
-                tokenHandler = new tokenHandler(credentials, transaction);
-                tokenHandler.createToken(credentials, transaction);
-                bearerToken = tokenHandler.bearerToken;
-                POSTMethod(credentials, transaction, false, null);
-            }
-            else
-                { e.printStackTrace(); }
-        }
+        catch (JSONException | IOException e)
+            { e.printStackTrace(); }
 
         //Return the response body
         return responseBody;

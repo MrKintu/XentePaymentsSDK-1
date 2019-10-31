@@ -13,6 +13,6 @@ import org.springframework.scheduling.annotation.Async;
 
 @Async
 public class transaction {
-    public transaction(JSONObject credentialsObject) {
+    public transaction(JSONObject credentialsObject, JSONObject transactionObject) {
     }
 }

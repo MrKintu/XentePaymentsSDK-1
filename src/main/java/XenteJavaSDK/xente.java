@@ -25,9 +25,9 @@ import java.io.IOException;
 @EnableAsync
 public class xente {
     xente(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException {
-        new account(credentialsObject);
-        new paymentProvider(credentialsObject);
-        new transaction(credentialsObject);
+        new account(credentialsObject, transactionObject);
+        new paymentProvider(credentialsObject, transactionObject);
+        new transaction(credentialsObject, transactionObject);
         new objectHandler(credentialsObject, transactionObject);
         new POSTRequestClient(credentialsObject, transactionObject);
         new constant(credentialsObject);
