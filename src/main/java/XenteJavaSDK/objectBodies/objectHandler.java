@@ -1,7 +1,8 @@
 /*
  * Copyright (c) 2019. This software and it's likeness belong to Kintu Declan Trevor.
  * <d-kintu@outlook.com>
- * This software is open for usage and modification by any user.
+ * Written on behalf of Xente Limited.
+ * This software is open for use and modification by any user.
  * Thank you.
  */
 
@@ -12,6 +13,7 @@ package XenteJavaSDK.objectBodies;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
+import org.springframework.scheduling.annotation.Async;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,18 +21,19 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
+@Async
 public class objectHandler {
     public String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone,
             customerEmail, customerReference, metadata, batchID, requestID;
 
     //Class Constructor
-    public objectHandler(JSONObject credentialsObject) {
-        authenticationObject(credentialsObject);
-        transactionObject(credentialsObject);
+    public objectHandler(JSONObject credentials, JSONObject transaction) {
+        authenticationObject(credentials);
+        transactionObject(transaction);
     }
 
-    //Method that collects the Authentication Credentials
-    private String authenticationObject(JSONObject object) {
+    //Method that parses the Authentication Credentials
+    String authenticationObject(JSONObject object) {
         try {
             //Read data from JSON Format
             ObjectMapper mapper = new ObjectMapper();
@@ -54,15 +57,14 @@ public class objectHandler {
                         + "\npassword: " + obj.getPassword()
                         + "\nmode: " + obj.getMode());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e)
+            { e.printStackTrace(); }
 
         return apiKey + password + mode;
     }
 
-    //Method that handles the Transaction Details Object.
-    private String transactionObject(JSONObject object) {
+    //Method that parses the Transaction Details Object.
+    String transactionObject(JSONObject object) {
         try {
             //Read data from JSON Format
             ObjectMapper mapper = new ObjectMapper();
@@ -101,9 +103,8 @@ public class objectHandler {
                         + "\nmetadata: " + obj.getMetadata()
                 );
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e)
+            { e.printStackTrace(); }
 
         return paymentProvider + amount + message + customerID + customerPhone + customerEmail
                 + customerReference + metadata + batchID + requestID;
