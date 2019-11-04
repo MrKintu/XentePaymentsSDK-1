@@ -22,11 +22,14 @@ import java.util.Map;
 
 @Async
 public class POSTRequestClient {
+    //Declare the variables to be used.
     public JSONObject responseBody;
 
     //Class Constructor.
-    public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException
-        { POSTMethod(credentialsObject, transactionObject, null); }
+    public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException {
+        String link = "";
+        POSTMethod(credentialsObject, transactionObject, link);
+    }
 
     // Create a Http object for making POST HTTP request to Xente API.
     //It takes in the credentials object, the transaction object, boolean value on whether a new token is needed
@@ -61,7 +64,7 @@ public class POSTRequestClient {
             httpOptions.put("headers", object);
             httpOptions.put("body", String.valueOf(transaction));
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> params : httpOptions.entrySet()){
+            for (Map.Entry<String, Object> params : httpOptions.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(params.getKey(), "UTF-8"));
                 postData.append('=');
@@ -81,7 +84,7 @@ public class POSTRequestClient {
             connection.getOutputStream().write(postDataBytes);
             int responseCode = connection.getResponseCode();
 
-            //Handle 401 Unauthorised error.
+            //Handle 401 Error: Unauthorised error.
             if(responseCode == 401) {
                 tokenHandler.createToken(credentials, transaction);
                 POSTMethod(credentials, transaction, webLink);
@@ -92,9 +95,12 @@ public class POSTRequestClient {
             StringBuilder sb = new StringBuilder();
             for (int c; (c = input.read()) >= 0;)
                 sb.append((char)c);
-            String response = sb.toString();
-            responseBody = new JSONObject(response);
-            System.out.println("Result after reading JSON Response Body");
+            input.close();
+
+            //Display the response body and assign it to variable.
+            JSONObject response = new JSONObject(sb.toString());
+            responseBody = response.getJSONObject("form");
+            System.out.println("Result JSON Response Body for request from Xente");
             System.out.println(responseBody);
         }
         //Catch & handle errors here.

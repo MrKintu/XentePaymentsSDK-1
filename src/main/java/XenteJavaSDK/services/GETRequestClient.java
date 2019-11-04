@@ -26,11 +26,14 @@ import java.util.Map;
 
 @Async
 public class GETRequestClient {
+    //Declare the variables to be used.
     public JSONObject responseBody;
 
     //Class Constructor.
-    public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException
-        { GETMethod(credentialsObject, transactionObject, null); }
+    public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException {
+        String link = "";
+        GETMethod(credentialsObject, transactionObject, link);
+    }
 
     // Create a Http object for making GET HTTP request to Xente API.
     //It takes in the credentials object, the transaction object, boolean value on whether a new token is needed
@@ -42,7 +45,7 @@ public class GETRequestClient {
         JSONObject object = new JSONObject();
         String bearerToken = tokenHandler.bearerToken;
 
-        //Determine whether bearerToken is available or not
+        //Determine whether bearerToken is available or not.
         if(bearerToken.isEmpty()) {
             tokenHandler.createToken(credentials, transaction);
             bearerToken = tokenHandler.bearerToken;
@@ -50,7 +53,7 @@ public class GETRequestClient {
         else
             { bearerToken = tokenHandler.bearerToken; }
 
-        //GET Data from Xente API.
+        //GET Data from the Xente API.
         try {
             //Create object for the Header section.
             object.put("Content-Type", "application/json");
@@ -65,7 +68,7 @@ public class GETRequestClient {
             httpOptions.put("headers", object);
             httpOptions.put("body", String.valueOf(transaction));
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> params : httpOptions.entrySet()){
+            for (Map.Entry<String, Object> params : httpOptions.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(params.getKey(), "UTF-8"));
                 postData.append('=');
@@ -86,7 +89,7 @@ public class GETRequestClient {
             connection.getOutputStream().write(postDataBytes);
             int responseCode = connection.getResponseCode();
 
-            //Handle 401 Unauthorised error.
+            //Handle 401 Error: Unauthorised error.
             if(responseCode == 401) {
                 tokenHandler.createToken(credentials, transaction);
                 GETMethod(credentials, transaction, webLink);
@@ -104,7 +107,9 @@ public class GETRequestClient {
             input.close();
 
             //Display the response body and assign it to variable.
-            responseBody = new JSONObject(sb.toString());
+            JSONObject response = new JSONObject(sb.toString());
+            responseBody = response.getJSONObject("form");
+            System.out.println("Result JSON Response Body for request from Xente");
             System.out.println(responseBody);
         }
         catch (JSONException | IOException e)

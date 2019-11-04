@@ -8,8 +8,6 @@
 
 package XenteJavaSDK.objectBodies;
 
-//These are the import statements.
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
@@ -23,6 +21,7 @@ import java.util.List;
 
 @Async
 public class objectHandler {
+    //Declare the variables to be used.
     public String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone,
             customerEmail, customerReference, metadata, batchID, requestID;
 
@@ -57,9 +56,13 @@ public class objectHandler {
 //                        + "\npassword: " + obj.getPassword()
 //                        + "\nmode: " + obj.getMode());
             }
-        } catch (IOException e)
+        }
+
+        //Catch all exceptions here.
+        catch (IOException e)
             { e.printStackTrace(); }
 
+        //Return data in String format.
         return apiKey + password + mode;
     }
 
@@ -102,9 +105,13 @@ public class objectHandler {
 //                        + "\nrequestID: " + obj.getRequestID()
 //                        + "\nmetadata: " + obj.getMetadata() );
             }
-        } catch (IOException e)
+        }
+
+        //Catch all exceptions here.
+        catch (IOException e)
             { e.printStackTrace(); }
 
+        //Return the data in string format.
         return paymentProvider + amount + message + customerID + customerPhone + customerEmail
                 + customerReference + metadata + batchID + requestID;
     }

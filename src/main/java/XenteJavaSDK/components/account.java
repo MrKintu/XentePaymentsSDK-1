@@ -18,6 +18,7 @@ import java.io.IOException;
 
 @Async
 public class account {
+    //Declare the variables to be used.
     public JSONObject responseBody;
 
     //Class Constructor
@@ -33,12 +34,18 @@ public class account {
         //Check to see if the user has passed in the accountID.
         if(accountID.isEmpty())
             { System.out.println("Please enter accountID to perform this function."); }
-        else {
-            constant constant = new constant(credentials);
-            String url = constant.accountURL + "/" + accountID;
-            GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
 
+        //If passed, continue to get transaction status from Xente.
+        else {
+            //Attain the URL with which to perform this function.
+            constant constant = new constant(credentials, transaction);
+            String url = constant.accountURL + "/" + accountID;
+
+            //Perform GET Method to receive a response body from the Xente API.
+            GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
             getRequestClient.GETMethod(credentials, transaction, url);
+
+            //Assign the response body to the local variable.
             responseBody = getRequestClient.responseBody;
         }
 

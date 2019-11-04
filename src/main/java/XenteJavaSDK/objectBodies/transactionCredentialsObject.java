@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Async;
 
 @Async
 public class transactionCredentialsObject {
+    //Declare the variables to be used.
     @NotNull
     private String paymentProvider, amount, message, customerID, customerPhone, customerEmail, customerReference,
     metadata, batchID, requestID;
@@ -20,51 +21,31 @@ public class transactionCredentialsObject {
     //Implement Getter and Setter for all Key-Value pairs
     public String getPaymentProvider()
         { return paymentProvider; }
-    public void setPaymentProvider(String paymentProvider)
-        { this.paymentProvider = paymentProvider; }
 
     public String getAmount()
         { return amount; }
-    public void setAmount(String amount)
-    { this.amount = amount; }
 
     public String getMessage()
         { return message; }
-    public void setMessage(String message)
-        { this.message = message; }
 
     public String getCustomerID()
         { return customerID; }
-    public void setCustomerID(String customerID)
-        { this.customerID = customerID; }
 
     public String getCustomerPhone()
         { return customerPhone; }
-    public void setCustomerPhone(String customerPhone)
-        { this.customerPhone = customerPhone; }
 
     public String getCustomerEmail()
         { return customerEmail; }
-    public void setCustomerEmail(String customerEmail)
-        { this.customerEmail = customerEmail; }
 
     public String getCustomerReference()
         { return customerReference; }
-    public void setCustomerReference(String customerReference)
-        { this.customerReference = customerReference; }
 
     public String getMetadata()
         { return metadata; }
-    public void setMetadata(String metadata)
-        { this.metadata = metadata; }
 
     public String getBatchID()
         { return batchID; }
-    public void setBatchID(String batchID)
-        { this.batchID = batchID; }
 
     public String getRequestID()
         { return requestID; }
-    public void setRequestID(String requestID)
-        { this.requestID = requestID; }
 }

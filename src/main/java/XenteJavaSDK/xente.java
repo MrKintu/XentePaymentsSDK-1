@@ -30,7 +30,7 @@ public class xente {
         new transaction(credentialsObject, transactionObject);
         new objectHandler(credentialsObject, transactionObject);
         new POSTRequestClient(credentialsObject, transactionObject);
-        new constant(credentialsObject);
+        new constant(credentialsObject, transactionObject);
         new tokenHandler(credentialsObject, transactionObject);
         new GETRequestClient(credentialsObject, transactionObject);
     }

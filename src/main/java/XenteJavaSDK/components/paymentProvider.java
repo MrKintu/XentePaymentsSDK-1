@@ -18,6 +18,7 @@ import java.io.IOException;
 
 @Async
 public class paymentProvider {
+    //Declare the variables to be used.
     public JSONObject responseBody;
 
     //Class Constructor.
@@ -25,13 +26,15 @@ public class paymentProvider {
         { getPaymentProviders(credentialsObject, transactionObject); }
 
     JSONObject getPaymentProviders(JSONObject credentials, JSONObject transaction) throws IOException, JSONException {
-        //Declare and assign the variables to be used.
-        constant constant = new constant(credentials);
+        //Declare the URL to be used.
+        constant constant = new constant(credentials, transaction);
         String url = constant.paymentProviderURL;
-        GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
 
         //Call GET Method in GETRequestClient and retrieve response body.
+        GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
         getRequestClient.GETMethod(credentials, transaction, url);
+
+        //Assign the response body to a local variable.
         responseBody = getRequestClient.responseBody;
 
         //return the response body.

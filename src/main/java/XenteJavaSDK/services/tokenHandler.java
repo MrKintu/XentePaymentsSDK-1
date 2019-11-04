@@ -26,6 +26,7 @@ import java.util.Map;
 
 @Async
 public class tokenHandler {
+    //Declare the variables to be used.
     public String bearerToken;
 
     //Initiate Class Constructor
@@ -36,7 +37,7 @@ public class tokenHandler {
     String createToken(JSONObject credentials, JSONObject transaction) throws IOException, JSONException {
         //Create local variables to be used within the method.
         objectHandler objectHandler = new objectHandler(credentials, transaction);
-        constant constant = new constant(credentials);
+        constant constant = new constant(credentials, transaction);
 
         //Generate Token in the try clause
         try {
@@ -47,9 +48,6 @@ public class tokenHandler {
             object.put("X-Date", new Date().toString());
             object.put("X-Correlation-ID", new Date().getTime());
             object.put("Authorization", "null");
-
-            //Declare URL to be used.
-            URL url = new URL(constant.authURL);
 
             //Create Object to send to Xente API
             Map<String, Object> httpOptions = new LinkedHashMap<>();
@@ -64,6 +62,9 @@ public class tokenHandler {
                 postData.append(URLEncoder.encode(String.valueOf(params.getValue()), "UTF-8"));
             }
             byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
+
+            //Declare URL to be used.
+            URL url = new URL(constant.authURL);
 
             //Establish a connection with the Xente API.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -82,7 +83,7 @@ public class tokenHandler {
             JSONObject responseBody = new JSONObject(response);
 
             //Read the Response Body and assign the token value to the local variable.
-            System.out.println("Result after reading JSON Response Body");
+            System.out.println("Result JSON Response Body for request from Xente");
             JSONObject form_data = responseBody.getJSONObject("form");
             bearerToken = form_data.getString("token");
             System.out.println("Token: "+form_data.getString("token"));
