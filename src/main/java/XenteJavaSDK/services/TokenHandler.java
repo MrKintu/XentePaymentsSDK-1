@@ -13,37 +13,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Async
-public class GETRequestClient {
+public class TokenHandler {
     //Declare the variables to be accessed globally.
-    public JSONObject responseBody;
+    public String bearerToken;
 
-    //Class Constructor.
-    public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
-        String link = "";
-        GETMethod(credentialsObject, transactionObject, link);
-    }
+    //Initiate Class Constructor
+    public TokenHandler(JSONObject credentialsObject, JSONObject transactionObject) throws IOException
+        { createToken(credentialsObject, transactionObject); }
 
-    // Create a Http object for making GET HTTP request to Xente API.
-    //It takes in the credentials object, the Transaction object, boolean value on whether a new token is needed
-    //and the respective URL link as parameters.
-    public JSONObject GETMethod(JSONObject credentials, JSONObject transaction, String webLink) throws IOException {
-        //Create local variables to be used.
+    // Create a Http object for making request
+    String createToken(JSONObject credentials, JSONObject transaction) throws IOException {
+        //Create local variables to be used within the method.
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
-        TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
-        String bearerToken = tokenHandler.bearerToken;
-
-        //Determine whether bearerToken is available or not.
-        if(bearerToken.isEmpty()) {
-            tokenHandler.createToken(credentials, transaction);
-            bearerToken = tokenHandler.bearerToken;
-        }
-        else
-            { bearerToken = tokenHandler.bearerToken; }
+        ConstantsUtil ConstantsUtil = new ConstantsUtil(credentials, transaction);
 
         //Create custom date format for Xente API.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
@@ -54,30 +41,31 @@ public class GETRequestClient {
         builder.add("X-ApiAuth-ApiKey", objectHandler.apiKey);
         builder.add("X-Date", simpleDateFormat.format(new Date()));
         builder.add("X-Correlation-ID", String.valueOf(new Date().getTime()));
-        builder.add("Authorization", bearerToken);
 
         //Perform POST Method to Xente API.
         OkHttpClient client = new OkHttpClient();
-        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
-        Request requestBody = new Request.Builder().get().url(webLink).headers(builder.build()).build();
+        Request requestBody = new Request.Builder()
+                .post(RequestBody.create(MediaType.parse("application/json"), credentials.toString()))
+                .url(ConstantsUtil.authURL).headers(builder.build()).build();
 
-        //Collect response body from Xente API and return the response body in JSON format.
+        //Collect response body from Xente API and assign bearer token value to variable.
         Response response = client.newCall(requestBody).execute();
         if(response != null){
             if(response.isSuccessful()){
                 try {
                     String body = response.body().string();
                     System.out.println(body+"\ncode: "+response.code());
-                    responseBody = new JSONObject(body);
-                    return responseBody;
+                    JSONObject finalResponse = new JSONObject(body);
+                    bearerToken = finalResponse.getString("token");
+                    return bearerToken;
                 }
                 catch (JSONException e)
-                { return null; }
+                    { return null; }
             }
             else
-            { return null; }
+                { return null; }
         }
         else
-        { return null; }
+            { return null; }
     }
 }

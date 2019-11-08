@@ -9,7 +9,7 @@
 package XenteJavaSDK.components;
 
 import XenteJavaSDK.services.GETRequestClient;
-import XenteJavaSDK.services.constant;
+import XenteJavaSDK.services.ConstantsUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
@@ -17,18 +17,18 @@ import org.springframework.scheduling.annotation.Async;
 import java.io.IOException;
 
 @Async
-public class paymentProvider {
+public class PaymentProvider {
     //Declare the variables to be used.
     public JSONObject responseBody;
 
     //Class Constructor.
-    public paymentProvider(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException
+    public PaymentProvider(JSONObject credentialsObject, JSONObject transactionObject) throws IOException, JSONException
         { getPaymentProviders(credentialsObject, transactionObject); }
 
     JSONObject getPaymentProviders(JSONObject credentials, JSONObject transaction) throws IOException, JSONException {
         //Declare the URL to be used.
-        constant constant = new constant(credentials, transaction);
-        String url = constant.paymentProviderURL;
+        ConstantsUtil ConstantsUtil = new ConstantsUtil(credentials, transaction);
+        String url = ConstantsUtil.paymentProviderURL;
 
         //Call GET Method in GETRequestClient and retrieve response body.
         GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);

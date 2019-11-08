@@ -8,25 +8,24 @@
 
 package XenteJavaSDK.services;
 
-import XenteJavaSDK.objectBodies.objectHandler;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
 @Async
-public class constant {
+public class ConstantsUtil {
     //Declare the variables used
-    private static final String baseDomain = "api.xente.co";
+    private static final String baseDomain = "api.Xente.co";
     private static final String baseSandboxDomain = "sandbox." + baseDomain;
     public String baseUrl, authURL, transactionURL, accountURL, paymentProviderURL;
 
     //Class Constructor
-    public constant(JSONObject credentialsObject, JSONObject transactionObject)
+    public ConstantsUtil(JSONObject credentialsObject, JSONObject transactionObject)
         { getURLs(credentialsObject, transactionObject); }
 
     //Determine the type of domain
     String getURLs(JSONObject credentials, JSONObject transaction) {
         //Determine the domain to be used.
-        objectHandler objectHandler = new objectHandler(credentials, transaction);
+        ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         String sandbox = objectHandler.mode;
         String domain;
         if (sandbox.equals("true"))
