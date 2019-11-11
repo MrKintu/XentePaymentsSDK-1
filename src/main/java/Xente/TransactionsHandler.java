@@ -6,37 +6,37 @@
  * Thank you.
  */
 
-package XenteJavaSDK.components;
+package Xente;
 
-import XenteJavaSDK.services.GETRequestClient;
-import XenteJavaSDK.services.POSTRequestClient;
-import XenteJavaSDK.services.ConstantsUtil;
+import Xente.services.GETRequestClient;
+import Xente.services.POSTRequestClient;
+import Xente.services.URLConstants;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.IOException;
 
 @Async
-public class Transaction {
-    //Declare the variables to be used.
+public class TransactionsHandler {
+    //Declare the variables to be accessed globally.
     public JSONObject responseBody;
 
     //Class constructor.
-    public Transaction(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
+    public TransactionsHandler(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
         String newID = "";
         createTransaction(credentialsObject, transactionObject);
         getTransactionByID(credentialsObject,transactionObject, newID);
     }
 
     //This method is used to create a new Transaction.
-    //This methods requires the authentication credentials JSON and the Transaction credentials JSON.
-    //It calls the GETRequestClient to retrieve a response from Xente on the status of their Transaction.
-    JSONObject createTransaction(JSONObject credentials, JSONObject transaction) throws IOException {
+    //This methods requires the authentication credentials JSON and the TransactionsHandler credentials JSON.
+    //It calls the POSTRequestClient to create a new transaction with Xente.
+    public JSONObject createTransaction(JSONObject credentials, JSONObject transaction) throws IOException {
         //Attain the URL with which to perform this function.
-        ConstantsUtil ConstantsUtil = new ConstantsUtil(credentials, transaction);
-        String url = ConstantsUtil.transactionURL;
+        URLConstants urlconstants = new URLConstants(credentials, transaction);
+        String url = urlconstants.transactionURL;
 
-        //Perform POST Method to send Transaction JSON object to Xente and receive a response body.
+        //Perform POST Method to send TransactionsHandler JSON object to Xente and receive a response body.
         POSTRequestClient postRequestClient = new POSTRequestClient(credentials, transaction);
         postRequestClient.POSTMethod(credentials, transaction, url);
 
@@ -48,18 +48,20 @@ public class Transaction {
     }
 
     //This method is used get a Transaction using the transactionID.
-    //This methods requires the authentication credentials JSON, the Transaction credentials JSON and the transactionID.
-    //It calls the POSTRequestClient to retrieve a response from Xente on the status of their Transaction.
-    JSONObject getTransactionByID(JSONObject credentials, JSONObject transaction, String transactionID) throws IOException {
+    //This methods requires the authentication credentials JSON, the TransactionsHandler credentials JSON,
+    // the transactionID, the number of pages desired to show and the page size.
+    //It calls the GETRequestClient to retrieve a response from Xente on the status of their Transactions.
+    public JSONObject getTransactionByID(JSONObject credentials, JSONObject transaction, String transactionID)
+            throws IOException {
         //Check to see if the transactionID has been passed to this method.
         if(transactionID.isEmpty())
-            { System.out.println("Please insert a Transaction ID to perform this function."); }
+            { System.out.println("Please insert a TransactionsHandler ID to perform this function."); }
 
-        //If passed, continue to get Transaction status from Xente.
+        //If passed, continue to get TransactionsHandler status from Xente.
         else {
             //Attain the URL with which to perform this function.
-            ConstantsUtil ConstantsUtil = new ConstantsUtil(credentials, transaction);
-            String url = ConstantsUtil.transactionURL + "?transactionId=" + transactionID + "&PageSize=1&PageNumber=1";
+            URLConstants urlconstants = new URLConstants(credentials, transaction);
+            String url = urlconstants.transactionURL + "?transactionId=" + transactionID + "&PageNumber=1&PageSize=1";
 
             //Perform GET Method to receive a response body from the Xente API.
             GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);

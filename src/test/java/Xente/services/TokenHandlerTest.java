@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package XenteJavaSDK.services;
+package Xente.services;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +21,7 @@ class TokenHandlerTest {
         credentials.put("mode", "sandbox");
 
         JSONObject transaction = new JSONObject();
-        transaction.put("PaymentProvider", "MTNMOBILEMONEYUG");
+        transaction.put("PaymentsProvider", "MTNMOBILEMONEYUG");
         transaction.put("amount", "800");
         transaction.put("message", "Demo Request");
         transaction.put("customerId", "256778418592");
@@ -30,7 +30,7 @@ class TokenHandlerTest {
         transaction.put("customerReference", "256778418592");
         transaction.put("batchId", "Batch001");
         transaction.put("requestId", "DemoRequest678");
-        transaction.put("metadata", "More information about Transaction here");
+        transaction.put("metadata", "More information about TransactionsHandler here");
 
         TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
         tokenHandler.createToken(credentials, transaction);

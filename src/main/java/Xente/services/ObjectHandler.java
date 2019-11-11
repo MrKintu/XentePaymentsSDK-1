@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package XenteJavaSDK.services;
+package Xente.services;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,16 +34,16 @@ public class ObjectHandler {
 
         //Catch all exceptions here.
         catch (JSONException e)
-            { e.printStackTrace(); }
+            { System.out.println(e.getMessage()); }
 
         //Return data in String format.
         return apiKey + password + mode;
     }
 
-    //Method that parses the Transaction Details Object.
+    //Method that parses the TransactionsHandler Details Object.
     private String transactionObject(JSONObject object) {
         try {
-            paymentProvider = (String) object.get("PaymentProvider");
+            paymentProvider = (String) object.get("PaymentsProvider");
             amount = (String) object.get("amount");
             message = (String) object.get("message");
             customerID = (String) object.get("customerId");
@@ -57,10 +57,10 @@ public class ObjectHandler {
 
         //Catch all exceptions here.
         catch (JSONException e)
-            { e.printStackTrace(); }
+            { System.out.println(e.getMessage()); }
 
         //Return the data in string format.
-        return paymentProvider + amount + message + customerID + customerPhone + customerEmail
-                + customerReference + batchID + requestID + metadata;
+        return paymentProvider + amount + message + customerID + customerPhone + customerEmail + customerReference
+                + batchID + requestID + metadata;
     }
 }

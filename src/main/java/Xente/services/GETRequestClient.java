@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package XenteJavaSDK.services;
+package Xente.services;
 
 import com.squareup.okhttp.*;
 import org.json.JSONException;
@@ -24,14 +24,13 @@ public class GETRequestClient {
 
     //Class Constructor.
     public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
-        String link = "";
-        GETMethod(credentialsObject, transactionObject, link);
+        String url = "";
+        GETMethod(credentialsObject, transactionObject, url);
     }
 
     // Create a Http object for making GET HTTP request to Xente API.
-    //It takes in the credentials object, the Transaction object, boolean value on whether a new token is needed
-    //and the respective URL link as parameters.
-    public JSONObject GETMethod(JSONObject credentials, JSONObject transaction, String webLink) throws IOException {
+    //It takes in the Credentials object, the TransactionsHandler object and the respective URL as parameters.
+    public JSONObject GETMethod(JSONObject credentials, JSONObject transaction, String url) throws IOException {
         //Create local variables to be used.
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
@@ -59,25 +58,27 @@ public class GETRequestClient {
         //Perform POST Method to Xente API.
         OkHttpClient client = new OkHttpClient();
         client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
-        Request requestBody = new Request.Builder().get().url(webLink).headers(builder.build()).build();
+        Request requestBody = new Request.Builder().get().url(url).headers(builder.build()).build();
 
         //Collect response body from Xente API and return the response body in JSON format.
         Response response = client.newCall(requestBody).execute();
         if(response != null){
-            if(response.isSuccessful()){
+            if(response.isSuccessful()) {
                 try {
                     String body = response.body().string();
-                    System.out.println(body+"\ncode: "+response.code());
+                    System.out.println(body + "\ncode: " + response.code());
                     responseBody = new JSONObject(body);
                     return responseBody;
                 }
-                catch (JSONException e)
-                { return null; }
+                catch (JSONException e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
             }
             else
-            { return null; }
+                { return null; }
         }
         else
-        { return null; }
+            { return null; }
     }
 }

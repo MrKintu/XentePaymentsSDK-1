@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package XenteJavaSDK.services;
+package Xente.services;
 
 import com.squareup.okhttp.*;
 import org.json.JSONException;
@@ -30,7 +30,7 @@ public class TokenHandler {
     String createToken(JSONObject credentials, JSONObject transaction) throws IOException {
         //Create local variables to be used within the method.
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
-        ConstantsUtil ConstantsUtil = new ConstantsUtil(credentials, transaction);
+        URLConstants urlconstants = new URLConstants(credentials, transaction);
 
         //Create custom date format for Xente API.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
@@ -46,21 +46,23 @@ public class TokenHandler {
         OkHttpClient client = new OkHttpClient();
         Request requestBody = new Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/json"), credentials.toString()))
-                .url(ConstantsUtil.authURL).headers(builder.build()).build();
+                .url(urlconstants.authURL).headers(builder.build()).build();
 
         //Collect response body from Xente API and assign bearer token value to variable.
         Response response = client.newCall(requestBody).execute();
         if(response != null){
-            if(response.isSuccessful()){
+            if(response.isSuccessful()) {
                 try {
                     String body = response.body().string();
-                    System.out.println(body+"\ncode: "+response.code());
-                    JSONObject finalResponse = new JSONObject(body);
-                    bearerToken = finalResponse.getString("token");
+                    System.out.println(body + "\ncode: " + response.code());
+                    JSONObject responseBody = new JSONObject(body);
+                    bearerToken = responseBody.getString("token");
                     return bearerToken;
                 }
-                catch (JSONException e)
-                    { return null; }
+                catch (JSONException e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
             }
             else
                 { return null; }
