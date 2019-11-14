@@ -28,6 +28,6 @@ public class Xente {
         new URLConstants(credentialsObject, transactionObject);
         new TokenHandler(credentialsObject, transactionObject);
         new GETRequestClient(credentialsObject, transactionObject);
-        new AuthenticatorUtil(credentialsObject, transactionObject);
+        new AuthenticateUtil(credentialsObject, transactionObject);
     }
 }

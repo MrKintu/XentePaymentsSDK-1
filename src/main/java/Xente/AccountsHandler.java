@@ -38,7 +38,7 @@ public class AccountsHandler {
         else {
             //Attain the URL with which to perform this function.
             URLConstants urlconstants = new URLConstants(credentials, transaction);
-            String url = urlconstants.accountURL + "/" + accountID;
+            final String url = urlconstants.accountURL + "/" + accountID;
 
             //Perform GET Method to receive a response body from the Xente API.
             GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
@@ -46,6 +46,9 @@ public class AccountsHandler {
 
             //Assign the response body to the local variable.
             responseBody = getRequestClient.responseBody;
+
+            //Display the responseBody.
+            System.out.println(responseBody);
         }
 
         //return the response body.

@@ -61,11 +61,14 @@ public class TransactionsHandler {
         else {
             //Attain the URL with which to perform this function.
             URLConstants urlconstants = new URLConstants(credentials, transaction);
-            String url = urlconstants.transactionURL + "?transactionId=" + transactionID + "&PageNumber=1&PageSize=1";
+            final String url = urlconstants.transactionURL + "?transactionId=" + transactionID + "&PageNumber=1&PageSize=1";
 
             //Perform GET Method to receive a response body from the Xente API.
             GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
             getRequestClient.GETMethod(credentials, transaction, url);
+
+            //Display the responseBody.
+            System.out.println(responseBody);
 
             //Assign the response body to the local variable.
             responseBody = getRequestClient.responseBody;

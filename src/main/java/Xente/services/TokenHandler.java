@@ -8,7 +8,7 @@
 
 package Xente.services;
 
-import com.squareup.okhttp.*;
+import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
@@ -53,6 +53,7 @@ public class TokenHandler {
         if(response != null){
             if(response.isSuccessful()) {
                 try {
+                    assert response.body() != null;
                     String body = response.body().string();
                     System.out.println(body + "\ncode: " + response.code());
                     JSONObject responseBody = new JSONObject(body);

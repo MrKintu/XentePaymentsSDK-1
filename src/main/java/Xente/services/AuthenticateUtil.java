@@ -8,32 +8,29 @@
 
 package Xente.services;
 
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import okhttp3.Authenticator;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.Route;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.Proxy;
 
-public class AuthenticatorUtil implements com.squareup.okhttp.Authenticator {
+public class AuthenticateUtil implements Authenticator {
     private JSONObject credentialsObject;
     private JSONObject transactionObject;
 
-    public AuthenticatorUtil(JSONObject credentialsObject, JSONObject transactionObject) {
+    public AuthenticateUtil(JSONObject credentialsObject, JSONObject transactionObject) {
         this.credentialsObject = credentialsObject;
         this.transactionObject = transactionObject;
     }
 
     @Override
-    public Request authenticate(Proxy proxy, Response response) throws IOException {
+    public Request authenticate(Route route, Response response) throws IOException {
         TokenHandler tokenHandler = new TokenHandler(credentialsObject, transactionObject);
         tokenHandler.createToken(credentialsObject, transactionObject);
         String bearerToken = tokenHandler.bearerToken;
 
         return response.request().newBuilder().addHeader("Authorization", bearerToken).build();
     }
-
-    @Override
-    public Request authenticateProxy(Proxy proxy, Response response)
-        { return null; }
 }

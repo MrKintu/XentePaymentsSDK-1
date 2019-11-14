@@ -27,7 +27,7 @@ public class PaymentsProvider {
     public JSONObject getPaymentProviders(JSONObject credentials, JSONObject transaction) throws IOException {
         //Declare the URL to be used.
         URLConstants urlconstants = new URLConstants(credentials, transaction);
-        String url = urlconstants.paymentProviderURL;
+        final String url = urlconstants.paymentProviderURL;
 
         //Call GET Method in GETRequestClient and retrieve response body.
         GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
@@ -35,6 +35,9 @@ public class PaymentsProvider {
 
         //Assign the response body to a local variable.
         responseBody = getRequestClient.responseBody;
+
+        //Display the responseBody.
+        System.out.println(responseBody);
 
         //return the response body.
         return responseBody;

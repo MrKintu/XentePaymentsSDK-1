@@ -6,14 +6,16 @@
  * Thank you.
  */
 
-package Xente.services;
+package Xente;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-class TokenHandlerTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class PaymentsProviderTest {
     public static void main(String[] args) throws JSONException, IOException {
         JSONObject credentials = new JSONObject();
         credentials.put("apiKey", "6A19EA2A706041A599375CC95FF08809");
@@ -32,8 +34,7 @@ class TokenHandlerTest {
         transaction.put("requestId", String.valueOf(Math.random()));
         transaction.put("metadata", "More information about TransactionsHandler here");
 
-        TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
-        tokenHandler.createToken(credentials, transaction);
-//        String bearerToken = tokenHandler.bearerToken;
+        PaymentsProvider paymentsProvider = new PaymentsProvider(credentials, transaction);
+        paymentsProvider.getPaymentProviders(credentials, transaction);
     }
 }

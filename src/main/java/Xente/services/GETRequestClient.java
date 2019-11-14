@@ -8,7 +8,7 @@
 
 package Xente.services;
 
-import com.squareup.okhttp.*;
+import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
@@ -34,6 +34,7 @@ public class GETRequestClient {
         //Create local variables to be used.
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
+        AuthenticateUtil authenticateUtil = new AuthenticateUtil(credentials, transaction);
         String bearerToken = tokenHandler.bearerToken;
 
         //Determine whether bearerToken is available or not.
@@ -57,7 +58,10 @@ public class GETRequestClient {
 
         //Perform POST Method to Xente API.
         OkHttpClient client = new OkHttpClient();
-        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
+//        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
+//        HttpUrl parsed = HttpUrl.parse(url);
+//        if (parsed == null) throw new IllegalArgumentException("unexpected url: " + url);
+//        String url(parsed);
         Request requestBody = new Request.Builder().get().url(url).headers(builder.build()).build();
 
         //Collect response body from Xente API and return the response body in JSON format.
@@ -65,6 +69,7 @@ public class GETRequestClient {
         if(response != null){
             if(response.isSuccessful()) {
                 try {
+                    assert response.body() != null;
                     String body = response.body().string();
                     System.out.println(body + "\ncode: " + response.code());
                     responseBody = new JSONObject(body);

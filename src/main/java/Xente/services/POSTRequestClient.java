@@ -8,7 +8,7 @@
 
 package Xente.services;
 
-import com.squareup.okhttp.*;
+import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
@@ -42,7 +42,7 @@ public class POSTRequestClient {
             bearerToken = tokenHandler.bearerToken;
         }
         else
-        { bearerToken = tokenHandler.bearerToken; }
+            { bearerToken = tokenHandler.bearerToken; }
 
         //Create custom date format for Xente API.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
@@ -57,7 +57,7 @@ public class POSTRequestClient {
 
         //Perform POST Method to Xente API.
         OkHttpClient client = new OkHttpClient();
-        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
+//        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
         Request requestBody = new Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/json"), transaction.toString()))
                 .url(url).headers(builder.build()).build();
@@ -67,6 +67,7 @@ public class POSTRequestClient {
         if(response != null){
             if(response.isSuccessful()) {
                 try {
+                    assert response.body() != null;
                     String body = response.body().string();
                     System.out.println(body + "\ncode: " + response.code());
                     responseBody = new JSONObject(body);
