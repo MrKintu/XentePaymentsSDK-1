@@ -34,7 +34,7 @@ public class TransactionsHandler {
     public JSONObject createTransaction(JSONObject credentials, JSONObject transaction) throws IOException {
         //Attain the URL with which to perform this function.
         URLConstants urlconstants = new URLConstants(credentials, transaction);
-        String url = urlconstants.transactionURL;
+        final String url = urlconstants.transactionURL;
 
         //Perform POST Method to send TransactionsHandler JSON object to Xente and receive a response body.
         POSTRequestClient postRequestClient = new POSTRequestClient(credentials, transaction);
@@ -42,6 +42,9 @@ public class TransactionsHandler {
 
         //Assign the response body to a local variable.
         responseBody = postRequestClient.responseBody;
+
+        //Display the response from the Xente API.
+        System.out.println(responseBody);
 
         //return the response body.
         return responseBody;
@@ -55,7 +58,7 @@ public class TransactionsHandler {
             throws IOException {
         //Check to see if the transactionID has been passed to this method.
         if(transactionID.isEmpty())
-            { System.out.println("Please insert a TransactionsHandler ID to perform this function."); }
+            { System.out.println("Please insert a Transactions ID to perform this function."); }
 
         //If passed, continue to get TransactionsHandler status from Xente.
         else {

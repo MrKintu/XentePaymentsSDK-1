@@ -31,6 +31,6 @@ public class AuthenticateUtil implements Authenticator {
         tokenHandler.createToken(credentialsObject, transactionObject);
         String bearerToken = tokenHandler.bearerToken;
 
-        return response.request().newBuilder().addHeader("Authorization", bearerToken).build();
+        return response.request().newBuilder().addHeader("Authorization", "Bearer "+bearerToken).build();
     }
 }

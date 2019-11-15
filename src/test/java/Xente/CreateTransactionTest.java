@@ -23,7 +23,7 @@ class CreateTransactionTest {
         credentials.put("mode", "sandbox");
 
         JSONObject transaction = new JSONObject();
-        transaction.put("PaymentsProvider", "MTNMOBILEMONEYUG");
+        transaction.put("paymentProvider", "MTNMOBILEMONEYUG");
         transaction.put("amount", "800");
         transaction.put("message", "Demo Request");
         transaction.put("customerId", "256778418592");

@@ -25,7 +25,7 @@ public class GETRequestClient {
     //Class Constructor.
     public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
         String url = "";
-        GETMethod(credentialsObject, transactionObject, url);
+        //GETMethod(credentialsObject, transactionObject, url);
     }
 
     // Create a Http object for making GET HTTP request to Xente API.
@@ -34,10 +34,9 @@ public class GETRequestClient {
         //Create local variables to be used.
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
-        AuthenticateUtil authenticateUtil = new AuthenticateUtil(credentials, transaction);
         String bearerToken = tokenHandler.bearerToken;
 
-        //Determine whether bearerToken is available or not.
+//        Determine whether bearerToken is available or not.
         if(bearerToken.isEmpty()) {
             tokenHandler.createToken(credentials, transaction);
             bearerToken = tokenHandler.bearerToken;
@@ -54,34 +53,37 @@ public class GETRequestClient {
         builder.add("X-ApiAuth-ApiKey", objectHandler.apiKey);
         builder.add("X-Date", simpleDateFormat.format(new Date()));
         builder.add("X-Correlation-ID", String.valueOf(new Date().getTime()));
-        builder.add("Authorization", bearerToken);
+        builder.add("Authorization", "Bearer "+bearerToken);
+        builder.add("Content-Type", "application/json");
 
+//        OkHttpClient.Builder mBuilder = new OkHttpClient.Builder();
+//        mBuilder.authenticator(new AuthenticateUtil(credentials, transaction));
+//        mBuilder.addInterceptor(chain -> {
+//
+//            Request request = chain.request();
+//            System.out.println("URL:"+request.url().toString());
+//            return chain.proceed(request);
+//        });
         //Perform POST Method to Xente API.
         OkHttpClient client = new OkHttpClient();
+//        OkHttpClient client = mBuilder.build();
 //        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
-//        HttpUrl parsed = HttpUrl.parse(url);
-//        if (parsed == null) throw new IllegalArgumentException("unexpected url: " + url);
-//        String url(parsed);
         Request requestBody = new Request.Builder().get().url(url).headers(builder.build()).build();
 
         //Collect response body from Xente API and return the response body in JSON format.
         Response response = client.newCall(requestBody).execute();
-        if(response != null){
-            if(response.isSuccessful()) {
-                try {
-                    assert response.body() != null;
-                    String body = response.body().string();
-                    System.out.println(body + "\ncode: " + response.code());
-                    responseBody = new JSONObject(body);
-                    return responseBody;
-                }
-                catch (JSONException e) {
-                    System.out.println(e.getMessage());
-                    return null;
-                }
+        if(response.isSuccessful()) {
+            try {
+                assert response.body() != null;
+                String body = response.body().string();
+                System.out.println(body + "\ncode: " + response.code());
+                responseBody = new JSONObject(body);
+                return responseBody;
             }
-            else
-                { return null; }
+            catch (JSONException e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
         }
         else
             { return null; }

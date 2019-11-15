@@ -46,7 +46,7 @@ public class URLConstants {
         accountURL = "http://34.90.206.233:83/api/v1/Accounts";
 
         // This will be `${baseUrl}/paymentproviders`
-        paymentProviderURL = "http://34.90.206.233:83/api/v1/paymentproviders";
+        paymentProviderURL = "http://34.90.206.233:83/api/v1/PaymentProviders/MOBILEMONEYUG/providerItems?pageSize=20&pageNumber=1";
 
         //return the URL values.
         return baseUrl + authURL + transactionURL + accountURL + paymentProviderURL;

@@ -43,7 +43,7 @@ public class ObjectHandler {
     //Method that parses the TransactionsHandler Details Object.
     private String transactionObject(JSONObject object) {
         try {
-            paymentProvider = (String) object.get("PaymentsProvider");
+            paymentProvider = (String) object.get("paymentProvider");
             amount = (String) object.get("amount");
             message = (String) object.get("message");
             customerID = (String) object.get("customerId");
