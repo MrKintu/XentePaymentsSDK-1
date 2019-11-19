@@ -19,19 +19,22 @@ import java.util.*;
 
 @Async
 public class POSTRequestClient {
-    //Declare the variables to be accessed globally.
+    //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
+    private static JSONObject credentialsObject, transactionObject;
 
     //Class Constructor.
-    public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
-        String url = "";
-//        POSTMethod(credentialsObject, transactionObject, url);
+    public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) {
+        POSTRequestClient.credentialsObject = credentialsObject;
+        POSTRequestClient.transactionObject = transactionObject;
     }
 
     // Create a Http object for making POST HTTP request to Xente API.
     //It takes in the Credentials object, the TransactionsHandler object and the respective URL as parameters.
-    public JSONObject POSTMethod(JSONObject credentials, JSONObject transaction, String url) throws IOException {
+    public JSONObject POSTMethod(String url) throws IOException {
         //Create local variables to be used.
+        JSONObject credentials = credentialsObject;
+        JSONObject transaction = transactionObject;
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
         String bearerToken = tokenHandler.bearerToken;
@@ -56,18 +59,18 @@ public class POSTRequestClient {
         builder.add("Authorization", "Bearer "+bearerToken);
         builder.add("Content-Type", "application/json");
 
-        OkHttpClient.Builder mBuilder = new OkHttpClient.Builder();
-        mBuilder.authenticator(new AuthenticateUtil(credentials, transaction));
-        mBuilder.addInterceptor(chain -> {
-
-            Request request = chain.request();
-            System.out.println("URL:"+request.url().toString());
-            return chain.proceed(request);
-        });
+//        OkHttpClient.Builder mBuilder = new OkHttpClient.Builder();
+//        mBuilder.authenticator(new AuthenticateUtil(credentials, transaction));
+//        mBuilder.addInterceptor(chain -> {
+//
+//            Request request = chain.request();
+//            System.out.println("URL:"+request.url().toString());
+//            return chain.proceed(request);
+//        });
 
         //Perform POST Method to Xente API.
-//        OkHttpClient client = new OkHttpClient();
-        OkHttpClient client = mBuilder.build();
+        OkHttpClient client = new OkHttpClient();
+//        OkHttpClient client = mBuilder.build();
 //        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
         Request requestBody = new Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/json"), transaction.toString()))
@@ -75,12 +78,11 @@ public class POSTRequestClient {
 
         //Collect response body from Xente API and return the response body in JSON format.
         Response response = client.newCall(requestBody).execute();
-        if(response != null){
+        if(response != null) {
             if(response.isSuccessful()) {
                 try {
                     assert response.body() != null;
                     String body = response.body().string();
-                    System.out.println(body + "\ncode: " + response.code());
                     responseBody = new JSONObject(body);
                     return responseBody;
                 }
@@ -90,9 +92,7 @@ public class POSTRequestClient {
                 }
             }
             else
-                {
-                    System.out.println(response.body().string());
-                    return null; }
+                { return null; }
         }
         else
             { return null; }

@@ -17,18 +17,18 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class AuthenticateUtil implements Authenticator {
-    private JSONObject credentialsObject;
-    private JSONObject transactionObject;
+    private static JSONObject credentialsObject;
+    private static JSONObject transactionObject;
 
     public AuthenticateUtil(JSONObject credentialsObject, JSONObject transactionObject) {
-        this.credentialsObject = credentialsObject;
-        this.transactionObject = transactionObject;
+        AuthenticateUtil.credentialsObject = credentialsObject;
+        AuthenticateUtil.transactionObject = transactionObject;
     }
 
     @Override
     public Request authenticate(Route route, Response response) throws IOException {
         TokenHandler tokenHandler = new TokenHandler(credentialsObject, transactionObject);
-        tokenHandler.createToken(credentialsObject, transactionObject);
+        tokenHandler.createToken();
         String bearerToken = tokenHandler.bearerToken;
 
         return response.request().newBuilder().addHeader("Authorization", "Bearer "+bearerToken).build();

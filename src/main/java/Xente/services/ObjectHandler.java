@@ -14,18 +14,23 @@ import org.springframework.scheduling.annotation.Async;
 
 @Async
 public class ObjectHandler {
-    //Declare the variables to be accessed globally.
+    //Declare the variables to be accessed globally & locally.
     public String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone,
             customerEmail, customerReference, metadata, batchID, requestID;
+    private static JSONObject credentialsObject, transactionObject;
 
     //Class Constructor
     public ObjectHandler(JSONObject credentials, JSONObject transaction) {
-        authenticationObject(credentials);
-        transactionObject(transaction);
+        ObjectHandler.credentialsObject = credentials;
+        ObjectHandler.transactionObject = transaction;
+        authenticationObject();
+        transactionObject();
     }
 
     //Method that parses the Authentication Credentials
-    private String authenticationObject(JSONObject object) {
+    private String authenticationObject() {
+        //Initialise object.
+        JSONObject object = credentialsObject;
         try {
             apiKey = (String) object.get("apiKey");
             password = (String) object.get("password");
@@ -41,7 +46,9 @@ public class ObjectHandler {
     }
 
     //Method that parses the TransactionsHandler Details Object.
-    private String transactionObject(JSONObject object) {
+    private String transactionObject() {
+        //Initialise object.
+        JSONObject object = transactionObject;
         try {
             paymentProvider = (String) object.get("paymentProvider");
             amount = (String) object.get("amount");

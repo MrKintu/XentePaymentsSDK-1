@@ -16,14 +16,21 @@ public class URLConstants {
     //Declare the variables used
     private static final String baseDomain = "api.Xente.co";
     private static final String baseSandboxDomain = "sandbox." + baseDomain;
+    private static JSONObject credentialsObject, transactionObject;
     public String baseUrl, authURL, transactionURL, accountURL, paymentProviderURL;
 
     //Class Constructor
-    public URLConstants(JSONObject credentialsObject, JSONObject transactionObject)
-        { getURLs(credentialsObject, transactionObject); }
+    public URLConstants(JSONObject credentialsObject, JSONObject transactionObject) {
+        URLConstants.credentialsObject = credentialsObject;
+        URLConstants.transactionObject = transactionObject;
+        getURLs();
+    }
 
     //Determine the type of domain
-    private String getURLs(JSONObject credentials, JSONObject transaction) {
+    private String getURLs() {
+        JSONObject credentials = credentialsObject;
+        JSONObject transaction = transactionObject;
+
         //Determine the domain to be used.
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         String mode = objectHandler.mode;

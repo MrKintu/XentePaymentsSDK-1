@@ -13,17 +13,18 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+//Test to view Payment providers available.
 class PaymentsProviderTest {
     public static void main(String[] args) throws JSONException, IOException {
+        //Test credentials object.
         JSONObject credentials = new JSONObject();
         credentials.put("apiKey", "6A19EA2A706041A599375CC95FF08809");
         credentials.put("password", "Demo123456");
         credentials.put("mode", "sandbox");
 
+        //Test transaction object.
         JSONObject transaction = new JSONObject();
-        transaction.put("PaymentsProvider", "MTNMOBILEMONEYUG");
+        transaction.put("paymentProvider", "MTNMOBILEMONEYUG");
         transaction.put("amount", "800");
         transaction.put("message", "Demo Request");
         transaction.put("customerId", "256778418592");
@@ -34,7 +35,8 @@ class PaymentsProviderTest {
         transaction.put("requestId", String.valueOf(Math.random()));
         transaction.put("metadata", "More information about TransactionsHandler here");
 
+        //Invoke method.
         PaymentsProvider paymentsProvider = new PaymentsProvider(credentials, transaction);
-        paymentsProvider.getPaymentProviders(credentials, transaction);
+        paymentsProvider.getPaymentProviders();
     }
 }

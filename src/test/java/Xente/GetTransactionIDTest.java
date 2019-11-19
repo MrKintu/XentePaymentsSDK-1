@@ -13,8 +13,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-//Test to determine the account information of dummy user
-class AccountsHandlerTest {
+//Test to retrieve transaction details using the transactionID.
+class GetTransactionIDTest {
     public static void main(String[] args) throws JSONException, IOException {
         //Test credentials object.
         JSONObject credentials = new JSONObject();
@@ -36,8 +36,8 @@ class AccountsHandlerTest {
         transaction.put("metadata", "More information about TransactionsHandler here");
 
         //Invoke method.
-        AccountsHandler accountsHandler = new AccountsHandler(credentials, transaction);
-        String accountID = "256784378515";
-        accountsHandler.getAccountByID(accountID);
+        TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
+        String transactionID = "631034D3F96C441085FA7D010ACB7194-256784378515";
+        transactionsHandler.getTransactionByID(transactionID);
     }
 }

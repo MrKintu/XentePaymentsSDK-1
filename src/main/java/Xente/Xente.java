@@ -16,8 +16,13 @@ import java.io.IOException;
 
 @EnableAsync
 public class Xente {
-    private static JSONObject credentialsObject = new JSONObject();
-    private static JSONObject transactionObject = new JSONObject();
+    private static JSONObject credentialsObject;
+    private static JSONObject transactionObject;
+
+    public Xente (JSONObject credentialsObject, JSONObject transactionObject) {
+        Xente.credentialsObject = credentialsObject;
+        Xente.transactionObject = transactionObject;
+    }
 
     public static void main(String[] args) throws IOException {
         new AccountsHandler(credentialsObject, transactionObject);

@@ -19,16 +19,22 @@ import java.util.*;
 
 @Async
 public class TokenHandler {
-    //Declare the variables to be accessed globally.
+    //Declare the variables to be accessed globally & locally.
     public String bearerToken;
+    private static JSONObject credentialsObject, transactionObject;
 
     //Initiate Class Constructor
-    public TokenHandler(JSONObject credentialsObject, JSONObject transactionObject) throws IOException
-        { createToken(credentialsObject, transactionObject); }
+    public TokenHandler(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
+        TokenHandler.credentialsObject = credentialsObject;
+        TokenHandler.transactionObject = transactionObject;
+        createToken();
+    }
 
     // Create a Http object for making request
-    String createToken(JSONObject credentials, JSONObject transaction) throws IOException {
+    String createToken() throws IOException {
         //Create local variables to be used within the method.
+        JSONObject credentials = credentialsObject;
+        JSONObject transaction = transactionObject;
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         URLConstants urlconstants = new URLConstants(credentials, transaction);
 

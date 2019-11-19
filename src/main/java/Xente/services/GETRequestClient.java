@@ -19,26 +19,29 @@ import java.util.*;
 
 @Async
 public class GETRequestClient {
-    //Declare the variables to be accessed globally.
+    //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
+    private static JSONObject credentialsObject, transactionObject;
 
     //Class Constructor.
-    public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
-        String url = "";
-        //GETMethod(credentialsObject, transactionObject, url);
+    public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) {
+        GETRequestClient.credentialsObject = credentialsObject;
+        GETRequestClient.transactionObject = transactionObject;
     }
 
     // Create a Http object for making GET HTTP request to Xente API.
     //It takes in the Credentials object, the TransactionsHandler object and the respective URL as parameters.
-    public JSONObject GETMethod(JSONObject credentials, JSONObject transaction, String url) throws IOException {
+    public JSONObject GETMethod(String url) throws IOException {
         //Create local variables to be used.
+        JSONObject credentials = credentialsObject;
+        JSONObject transaction = transactionObject;
         ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
         TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
         String bearerToken = tokenHandler.bearerToken;
 
 //        Determine whether bearerToken is available or not.
         if(bearerToken.isEmpty()) {
-            tokenHandler.createToken(credentials, transaction);
+            tokenHandler.createToken();
             bearerToken = tokenHandler.bearerToken;
         }
         else
@@ -64,6 +67,7 @@ public class GETRequestClient {
 //            System.out.println("URL:"+request.url().toString());
 //            return chain.proceed(request);
 //        });
+
         //Perform POST Method to Xente API.
         OkHttpClient client = new OkHttpClient();
 //        OkHttpClient client = mBuilder.build();
@@ -72,18 +76,22 @@ public class GETRequestClient {
 
         //Collect response body from Xente API and return the response body in JSON format.
         Response response = client.newCall(requestBody).execute();
-        if(response.isSuccessful()) {
-            try {
-                assert response.body() != null;
-                String body = response.body().string();
-                System.out.println(body + "\ncode: " + response.code());
-                responseBody = new JSONObject(body);
-                return responseBody;
+        if(response != null) {
+            if(response.isSuccessful()) {
+                try {
+                    assert response.body() != null;
+                    String body = response.body().string();
+                    System.out.println(body + "\ncode: " + response.code());
+                    responseBody = new JSONObject(body);
+                    return responseBody;
+                }
+                catch (JSONException e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
             }
-            catch (JSONException e) {
-                System.out.println(e.getMessage());
-                return null;
-            }
+            else
+                { return null; }
         }
         else
             { return null; }
