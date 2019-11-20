@@ -31,13 +31,13 @@ This is a instruction manual on how to use the Xente Java SDK.
     TokenHandler class.
 - The Services package also contains logic to manipulate the data in the JSON files in the ObjectHandler class.
     It it highly important that the integrator passes the JSON files correctly to the Xente instance, with the
-    Credentials JSON passed first followed by the Transaction JSON file.
+    Credentials JSON passed first followed by the Transaction JSON file. This is further shown in a code snippet below.
 - The Services package also contains logic to handle the assignment of the various URLs to be called within the
     URLConstants class.
 - The Services package has the logic to perform all GET requests from the Xente API within the GETRequestClient class.
 - The Services package has the logic to perform all POST requests to the Xente API within the POSTRequestClient class.
 
-- Invoke an instance of the Xente package as follows:
+> Invoke an instance of the Xente package as follows:
     Xente xente = new Xente(credentials, transaction);
 
 - From this the integrator can now use the object to perform various methods within the Components package through
