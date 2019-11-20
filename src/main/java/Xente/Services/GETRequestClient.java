@@ -6,32 +6,32 @@
  * Thank you.
  */
 
-package Xente.services;
+package Xente.Services;
 
 import okhttp3.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
-import java.io.*;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Async
-public class POSTRequestClient {
+public class GETRequestClient {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
     private static JSONObject credentialsObject, transactionObject;
 
     //Class Constructor.
-    public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) {
-        POSTRequestClient.credentialsObject = credentialsObject;
-        POSTRequestClient.transactionObject = transactionObject;
+    public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) {
+        GETRequestClient.credentialsObject = credentialsObject;
+        GETRequestClient.transactionObject = transactionObject;
     }
 
-    // Create a Http object for making POST HTTP request to Xente API.
+    // Create a Http object for making GET HTTP request to Xente API.
     //It takes in the Credentials object, the TransactionsHandler object and the respective URL as parameters.
-    public JSONObject POSTMethod(String url) throws IOException {
+    public JSONObject GETMethod(String url) throws IOException {
         //Create local variables to be used.
         JSONObject credentials = credentialsObject;
         JSONObject transaction = transactionObject;
@@ -39,13 +39,13 @@ public class POSTRequestClient {
         TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
         String bearerToken = tokenHandler.bearerToken;
 
-        //Determine whether bearerToken is available or not.
-//        if(bearerToken.isEmpty()) {
-//            tokenHandler.createToken(credentials, transaction);
-//            bearerToken = tokenHandler.bearerToken;
-//        }
-//        else
-//            { bearerToken = tokenHandler.bearerToken; }
+//        Determine whether bearerToken is available or not.
+        if(bearerToken.isEmpty()) {
+            tokenHandler.createToken();
+            bearerToken = tokenHandler.bearerToken;
+        }
+        else
+            { bearerToken = tokenHandler.bearerToken; }
 
         //Create custom date format for Xente API.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
@@ -72,9 +72,7 @@ public class POSTRequestClient {
         OkHttpClient client = new OkHttpClient();
 //        OkHttpClient client = mBuilder.build();
 //        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
-        Request requestBody = new Request.Builder()
-                .post(RequestBody.create(MediaType.parse("application/json"), transaction.toString()))
-                .url(url).headers(builder.build()).build();
+        Request requestBody = new Request.Builder().get().url(url).headers(builder.build()).build();
 
         //Collect response body from Xente API and return the response body in JSON format.
         Response response = client.newCall(requestBody).execute();
@@ -83,6 +81,7 @@ public class POSTRequestClient {
                 try {
                     assert response.body() != null;
                     String body = response.body().string();
+                    System.out.println(body + "\ncode: " + response.code());
                     responseBody = new JSONObject(body);
                     return responseBody;
                 }

@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.services;
+package Xente.Services;
 
 import org.json.JSONException;
 import org.json.JSONObject;

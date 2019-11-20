@@ -6,16 +6,18 @@
  * Thank you.
  */
 
-package Xente.services;
+package Xente.Services;
 
 import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Route;
 import org.json.JSONObject;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.IOException;
 
+@EnableAsync
 public class AuthenticateUtil implements Authenticator {
     private static JSONObject credentialsObject;
     private static JSONObject transactionObject;

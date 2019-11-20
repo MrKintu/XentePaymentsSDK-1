@@ -8,7 +8,10 @@
 
 package Xente;
 
-import Xente.services.*;
+import Xente.Components.AccountsHandler;
+import Xente.Components.PaymentsProvider;
+import Xente.Components.TransactionsHandler;
+import Xente.Services.*;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -18,10 +21,16 @@ import java.io.IOException;
 public class Xente {
     private static JSONObject credentialsObject;
     private static JSONObject transactionObject;
+    public final AccountsHandler accountsHandler;
+    public final PaymentsProvider paymentsProvider;
+    public final TransactionsHandler transactionsHandler;
 
-    public Xente (JSONObject credentialsObject, JSONObject transactionObject) {
+    public Xente(JSONObject credentialsObject, JSONObject transactionObject) {
         Xente.credentialsObject = credentialsObject;
         Xente.transactionObject = transactionObject;
+        accountsHandler = new AccountsHandler(credentialsObject, transactionObject);
+        paymentsProvider = new PaymentsProvider(credentialsObject, transactionObject);
+        transactionsHandler = new TransactionsHandler(credentialsObject, transactionObject);
     }
 
     public static void main(String[] args) throws IOException {

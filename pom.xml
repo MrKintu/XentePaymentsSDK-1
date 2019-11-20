@@ -246,7 +246,7 @@ Spring-DM-Version: ${pom.version}
                     <manifestLocation>META-INF</manifestLocation>
                     <instructions>
                         <Export-Package>
-                            !Xente.services,Xente*
+                            !Xente.Services,Xente*
                         </Export-Package>
                         <Import-Package>*</Import-Package>
                         <Include-Resource>src/main/resources</Include-Resource>

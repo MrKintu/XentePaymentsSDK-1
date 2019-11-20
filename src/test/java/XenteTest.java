@@ -6,15 +6,13 @@
  * Thank you.
  */
 
-package Xente.services;
-
+import Xente.Xente;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-//Test to generate bearer token from Xente.
-class TokenHandlerTest {
+class XenteTest {
     public static void main(String[] args) throws JSONException, IOException {
         //Test credentials object.
         JSONObject credentials = new JSONObject();
@@ -35,8 +33,25 @@ class TokenHandlerTest {
         transaction.put("requestId", String.valueOf(Math.random()));
         transaction.put("metadata", "More information about TransactionsHandler here");
 
-        //Invoke method.
-        TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
-        tokenHandler.createToken();
+        //Create Xente Object.
+        Xente xente = new Xente(credentials, transaction);
+
+//        //Invoke method to check account details.
+//        String accountID = "256784378515";
+//        xente.accountsHandler.getAccountByID(accountID);
+
+//        //Invoke method to list payment providers.
+//        xente.paymentsProvider.getPaymentProviders();
+
+//        //Invoke method to create transaction.
+//        xente.transactionsHandler.createTransaction();
+
+//        //Invoke method to get a transaction using the transaction ID.
+//        String transactionID = "631034D3F96C441085FA7D010ACB7194-256784378515";
+//        xente.transactionsHandler.getTransactionByID(transactionID);
+
+//        //Invoke method to get a transaction using the Request ID.
+//        String requestID = "0.9351612896255068";
+//        xente.transactionsHandler.getRequestByID(requestID);
     }
 }

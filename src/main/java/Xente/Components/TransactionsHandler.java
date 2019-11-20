@@ -6,11 +6,11 @@
  * Thank you.
  */
 
-package Xente;
+package Xente.Components;
 
-import Xente.services.GETRequestClient;
-import Xente.services.POSTRequestClient;
-import Xente.services.URLConstants;
+import Xente.Services.GETRequestClient;
+import Xente.Services.POSTRequestClient;
+import Xente.Services.URLConstants;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
@@ -90,7 +90,7 @@ public class TransactionsHandler {
     //This methods requires the authentication credentials JSON, the Transactions credentials JSON,
     //and the requestID.
     //It calls the GETRequestClient to retrieve a response from Xente on the status of their Transactions.
-    public  JSONObject getRequestID(String requestID) throws IOException {
+    public  JSONObject getRequestByID(String requestID) throws IOException {
         JSONObject credentials = credentialsObject;
         JSONObject transaction = transactionObject;
 

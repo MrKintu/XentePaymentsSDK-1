@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.services;
+package Xente.Services;
 
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;

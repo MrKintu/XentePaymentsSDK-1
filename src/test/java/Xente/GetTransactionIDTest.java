@@ -8,6 +8,7 @@
 
 package Xente;
 
+import Xente.Components.TransactionsHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 

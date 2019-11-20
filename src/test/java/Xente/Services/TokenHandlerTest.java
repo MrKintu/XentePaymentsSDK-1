@@ -6,16 +6,15 @@
  * Thank you.
  */
 
-package Xente;
+package Xente.Services;
 
-import Xente.Components.TransactionsHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-//Test to create a sample transaction.
-class CreateTransactionTest {
+//Test to generate bearer token from Xente.
+class TokenHandlerTest {
     public static void main(String[] args) throws JSONException, IOException {
         //Test credentials object.
         JSONObject credentials = new JSONObject();
@@ -37,7 +36,7 @@ class CreateTransactionTest {
         transaction.put("metadata", "More information about TransactionsHandler here");
 
         //Invoke method.
-        TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
-        transactionsHandler.createTransaction();
+        TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
+        tokenHandler.createToken();
     }
 }

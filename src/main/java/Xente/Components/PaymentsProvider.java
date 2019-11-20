@@ -6,43 +6,40 @@
  * Thank you.
  */
 
-package Xente;
+package Xente.Components;
 
-import Xente.services.GETRequestClient;
-import Xente.services.URLConstants;
+import Xente.Services.GETRequestClient;
+import Xente.Services.URLConstants;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
 import java.io.IOException;
 
 @Async
-public class AccountsHandler {
+public class PaymentsProvider {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
     private static JSONObject credentialsObject, transactionObject;
 
-    //Class Constructor
-    public AccountsHandler(JSONObject credentialsObject, JSONObject transactionObject) {
-        AccountsHandler.credentialsObject = credentialsObject;
-        AccountsHandler.transactionObject = transactionObject;
+    //Class Constructor.
+    public PaymentsProvider(JSONObject credentialsObject, JSONObject transactionObject) {
+        PaymentsProvider.credentialsObject = credentialsObject;
+        PaymentsProvider.transactionObject = transactionObject;
     }
 
-    //This method is used to get the integrator's AccountsHandler using their AccountsHandler ID.
-    //Their AccountsHandler ID would the the phone number they registered to use  the Xente API with.
-    //It takes in the credentials object, TransactionsHandler object and accountID as parameters.
-    public JSONObject getAccountByID(String accountID) throws IOException {
+    public JSONObject getPaymentProviders() throws IOException {
         JSONObject credentials = credentialsObject;
         JSONObject transaction = transactionObject;
 
-        //Attain the URL with which to perform this function.
+        //Declare the URL to be used.
         URLConstants urlconstants = new URLConstants(credentials, transaction);
-        final String url = urlconstants.accountURL + "/" + accountID;
+        final String url = urlconstants.paymentProviderURL;
 
-        //Perform GET Method to receive a response body from the Xente API.
+        //Call GET Method in GETRequestClient and retrieve response body.
         GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
         getRequestClient.GETMethod(url);
 
-        //Assign the response body to the local variable.
+        //Assign the response body to a local variable.
         responseBody = getRequestClient.responseBody;
 
         //Display the responseBody.

@@ -8,6 +8,7 @@
 
 package Xente;
 
+import Xente.Components.TransactionsHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +39,6 @@ class GetRequestIDTest {
         //Invoke method.
         TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
         String requestID = "0.9351612896255068";
-        transactionsHandler.getRequestID(requestID);
+        transactionsHandler.getRequestByID(requestID);
     }
 }
