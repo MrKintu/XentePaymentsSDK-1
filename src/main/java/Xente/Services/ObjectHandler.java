@@ -15,8 +15,8 @@ import org.springframework.scheduling.annotation.Async;
 @Async
 public class ObjectHandler {
     //Declare the variables to be accessed globally & locally.
-    public String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone,
-            customerEmail, customerReference, metadata, batchID, requestID;
+    public String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone, customerEmail,
+            customerReference, metadata, batchID, requestID;
     private static JSONObject credentialsObject, transactionObject;
 
     //Class Constructor

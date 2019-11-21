@@ -69,9 +69,9 @@ public class GETRequestClient {
 //        });
 
         //Perform POST Method to Xente API.
-        OkHttpClient client = new OkHttpClient();
-//        OkHttpClient client = mBuilder.build();
-//        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
+        OkHttpClient.Builder okbuilder = new OkHttpClient.Builder();
+        okbuilder.authenticator(new AuthenticateUtil(credentials, transaction));
+        OkHttpClient client = okbuilder.build();
         Request requestBody = new Request.Builder().get().url(url).headers(builder.build()).build();
 
         //Collect response body from Xente API and return the response body in JSON format.

@@ -1,4 +1,4 @@
-This is a instruction manual on how to use the Xente Java SDK.
+This is a guide on how to use the Xente Java SDK.
 
 - The SDK is divided into two main parts: the Components and the Services.
 - The SDK user shall mainly interact with the Components package and the Services package shall run in the background.

@@ -51,7 +51,7 @@ class XenteTest {
 //        xente.transactionsHandler.getTransactionByID(transactionID);
 
 //        //Invoke method to get a transaction using the Request ID.
-//        String requestID = "0.9351612896255068";
+//        String requestID = "0.8230077495954705";
 //        xente.transactionsHandler.getRequestByID(requestID);
     }
 }

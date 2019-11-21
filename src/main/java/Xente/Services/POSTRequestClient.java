@@ -69,9 +69,9 @@ public class POSTRequestClient {
 //        });
 
         //Perform POST Method to Xente API.
-        OkHttpClient client = new OkHttpClient();
-//        OkHttpClient client = mBuilder.build();
-//        client.setAuthenticator(new AuthenticatorUtil(credentials, transaction));
+        OkHttpClient.Builder okbuilder = new OkHttpClient.Builder();
+        okbuilder.authenticator(new AuthenticateUtil(credentials, transaction));
+        OkHttpClient client = okbuilder.build();
         Request requestBody = new Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/json"), transaction.toString()))
                 .url(url).headers(builder.build()).build();

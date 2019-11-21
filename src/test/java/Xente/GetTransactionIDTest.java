@@ -38,7 +38,7 @@ class GetTransactionIDTest {
 
         //Invoke method.
         TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
-        String transactionID = "631034D3F96C441085FA7D010ACB7194-256784378515";
+        String transactionID = "B141DD9A40ED4DB9BF15A53A78B2446F-256784378515";
         transactionsHandler.getTransactionByID(transactionID);
     }
 }
