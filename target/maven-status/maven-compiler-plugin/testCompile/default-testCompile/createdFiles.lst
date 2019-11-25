@@ -1,0 +1,7 @@
+Xente\CreateTransactionTest.class
+XenteTest.class
+Xente\Services\TokenHandlerTest.class
+Xente\PaymentsProviderTest.class
+Xente\AccountsHandlerTest.class
+Xente\GetRequestIDTest.class
+Xente\GetTransactionIDTest.class
