@@ -6,16 +6,16 @@
  * Thank you.
  */
 
-package Xente;
+package XentePayments;
 
-import Xente.Components.TransactionsHandler;
+import XentePayments.Components.AccountsHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-//Test to retrieve transaction details using the transactionID.
-class GetTransactionIDTest {
+//Test to determine the account information of dummy user
+class AccountsHandlerTest {
     public static void main(String[] args) throws JSONException, IOException {
         //Test credentials object.
         JSONObject credentials = new JSONObject();
@@ -37,8 +37,8 @@ class GetTransactionIDTest {
         transaction.put("metadata", "More information about TransactionsHandler here");
 
         //Invoke method.
-        TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
-        String transactionID = "B141DD9A40ED4DB9BF15A53A78B2446F-256784378515";
-        transactionsHandler.getTransactionByID(transactionID);
+        AccountsHandler accountsHandler = new AccountsHandler(credentials, transaction);
+        String accountID = "256784378515";
+        accountsHandler.getAccountByID(accountID);
     }
 }

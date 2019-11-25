@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.Services;
+package XentePayments.Services;
 
 import okhttp3.*;
 import org.json.JSONException;
@@ -25,6 +25,7 @@ public class TokenHandler {
 
     //Initiate Class Constructor
     public TokenHandler(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
+        //Initialise objects and methods.
         TokenHandler.credentialsObject = credentialsObject;
         TokenHandler.transactionObject = transactionObject;
         createToken();

@@ -6,11 +6,11 @@
  * Thank you.
  */
 
-package Xente.Components;
+package XentePayments.Components;
 
-import Xente.Services.GETRequestClient;
-import Xente.Services.POSTRequestClient;
-import Xente.Services.URLConstants;
+import XentePayments.Services.GETRequestClient;
+import XentePayments.Services.POSTRequestClient;
+import XentePayments.Services.URLConstants;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
@@ -20,26 +20,26 @@ import java.io.IOException;
 public class TransactionsHandler {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
-    private static JSONObject credentialsObject, transactionObject;
+    private static JSONObject credentialsObject, transactionRequest;
 
     //Class constructor.
-    public TransactionsHandler(JSONObject credentialsObject, JSONObject transactionObject) {
+    public TransactionsHandler(JSONObject credentialsObject, JSONObject transactionRequest) {
+        //Initialise objects.
         TransactionsHandler.credentialsObject = credentialsObject;
-        TransactionsHandler.transactionObject = transactionObject;
+        TransactionsHandler.transactionRequest = transactionRequest;
     }
 
     //This method is used to create a new Transaction.
-    //This methods requires the authentication credentials JSON and the Transactions credentials JSON.
     //It calls the POSTRequestClient to create a new transaction with Xente.
     public JSONObject createTransaction() throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
+        JSONObject transaction = transactionRequest;
 
         //Attain the URL with which to perform this function.
         URLConstants urlconstants = new URLConstants(credentials, transaction);
         final String url = urlconstants.transactionURL;
 
-        //Perform POST Method to send TransactionsHandler JSON object to Xente and receive a response body.
+        //Perform POST Method to send Transactions Request JSON object to Xente and receive a response body.
         POSTRequestClient postRequestClient = new POSTRequestClient(credentials, transaction);
         postRequestClient.POSTMethod(url);
 
@@ -53,19 +53,18 @@ public class TransactionsHandler {
         return responseBody;
     }
 
-    //This method is used get a Transaction using the transactionID.
-    //This methods requires the authentication credentials JSON, the Transactions credentials JSON,
-    // the transactionID, the number of pages desired to show and the page size.
+    //This method is used get a Transaction using the transaction ID.
+    //This methods requires the transactionID.
     //It calls the GETRequestClient to retrieve a response from Xente on the status of their Transactions.
     public JSONObject getTransactionByID(String transactionID) throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
+        JSONObject transaction = transactionRequest;
 
         //Check to see if the transactionID has been passed to this method.
         if(transactionID.isEmpty())
             { System.out.println("Please insert a Transactions ID to perform this function."); }
 
-        //If passed, continue to get TransactionsHandler status from Xente.
+        //If passed, continue to get Transaction status from Xente.
         else {
             //Attain the URL with which to perform this function.
             URLConstants urlconstants = new URLConstants(credentials, transaction);
@@ -87,18 +86,17 @@ public class TransactionsHandler {
     }
 
     //This method is used to get a transaction using the RequestID.
-    //This methods requires the authentication credentials JSON, the Transactions credentials JSON,
-    //and the requestID.
+    //This methods requires the requestID.
     //It calls the GETRequestClient to retrieve a response from Xente on the status of their Transactions.
     public  JSONObject getRequestByID(String requestID) throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
+        JSONObject transaction = transactionRequest;
 
         //Check to see if the requestID has been passed to this method.
         if(requestID.isEmpty())
             { System.out.println("Please insert a Request ID to perform this function."); }
 
-        //If passed, continue to get TransactionsHandler status from Xente.
+        //If passed, continue to get Transaction status from Xente.
         else {
             //Attain the URL with which to perform this function.
             URLConstants urlconstants = new URLConstants(credentials, transaction);

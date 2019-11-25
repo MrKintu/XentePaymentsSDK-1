@@ -6,16 +6,15 @@
  * Thank you.
  */
 
-package Xente;
+package XentePayments.Services;
 
-import Xente.Components.TransactionsHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-//Test to retrieve transaction details using the requestID.
-class GetRequestIDTest {
+//Test to generate bearer token from Xente.
+class TokenHandlerTest {
     public static void main(String[] args) throws JSONException, IOException {
         //Test credentials object.
         JSONObject credentials = new JSONObject();
@@ -37,8 +36,7 @@ class GetRequestIDTest {
         transaction.put("metadata", "More information about TransactionsHandler here");
 
         //Invoke method.
-        TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
-        String requestID = "0.9351612896255068";
-        transactionsHandler.getRequestByID(requestID);
+        TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
+        tokenHandler.createToken();
     }
 }

@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.Services;
+package XentePayments.Services;
 
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
@@ -21,6 +21,7 @@ public class URLConstants {
 
     //Class Constructor
     public URLConstants(JSONObject credentialsObject, JSONObject transactionObject) {
+        //Initialise the objects.
         URLConstants.credentialsObject = credentialsObject;
         URLConstants.transactionObject = transactionObject;
         getURLs();

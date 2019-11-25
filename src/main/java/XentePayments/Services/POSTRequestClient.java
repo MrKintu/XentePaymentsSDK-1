@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.Services;
+package XentePayments.Services;
 
 import okhttp3.*;
 import org.json.JSONException;
@@ -19,18 +19,19 @@ import java.util.*;
 
 @Async
 public class POSTRequestClient {
-    //Declare the variables to be accessed globally & locally.
+    //Declare the object variables to be accessed globally & locally.
     public JSONObject responseBody;
     private static JSONObject credentialsObject, transactionObject;
 
     //Class Constructor.
     public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) {
+        //Initialise objects.
         POSTRequestClient.credentialsObject = credentialsObject;
         POSTRequestClient.transactionObject = transactionObject;
     }
 
     // Create a Http object for making POST HTTP request to Xente API.
-    //It takes in the Credentials object, the TransactionsHandler object and the respective URL as parameters.
+    //It takes in the Respective URL as parameters.
     public JSONObject POSTMethod(String url) throws IOException {
         //Create local variables to be used.
         JSONObject credentials = credentialsObject;
@@ -40,12 +41,12 @@ public class POSTRequestClient {
         String bearerToken = tokenHandler.bearerToken;
 
         //Determine whether bearerToken is available or not.
-//        if(bearerToken.isEmpty()) {
-//            tokenHandler.createToken(credentials, transaction);
-//            bearerToken = tokenHandler.bearerToken;
-//        }
-//        else
-//            { bearerToken = tokenHandler.bearerToken; }
+        if(bearerToken.isEmpty()) {
+            tokenHandler.createToken();
+            bearerToken = tokenHandler.bearerToken;
+        }
+        else
+            { bearerToken = tokenHandler.bearerToken; }
 
         //Create custom date format for Xente API.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());

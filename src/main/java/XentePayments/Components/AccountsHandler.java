@@ -6,10 +6,10 @@
  * Thank you.
  */
 
-package Xente.Components;
+package XentePayments.Components;
 
-import Xente.Services.GETRequestClient;
-import Xente.Services.URLConstants;
+import XentePayments.Services.GETRequestClient;
+import XentePayments.Services.URLConstants;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
@@ -19,20 +19,20 @@ import java.io.IOException;
 public class AccountsHandler {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
-    private static JSONObject credentialsObject, transactionObject;
+    private static JSONObject credentialsObject, transactionRequest;
 
     //Class Constructor
-    public AccountsHandler(JSONObject credentialsObject, JSONObject transactionObject) {
+    public AccountsHandler(JSONObject credentialsObject, JSONObject transactionRequest) {
+        //Initialise objects.
         AccountsHandler.credentialsObject = credentialsObject;
-        AccountsHandler.transactionObject = transactionObject;
+        AccountsHandler.transactionRequest = transactionRequest;
     }
 
-    //This method is used to get the integrator's AccountsHandler using their AccountsHandler ID.
-    //Their AccountsHandler ID would the the phone number they registered to use  the Xente API with.
-    //It takes in the credentials object, TransactionsHandler object and accountID as parameters.
+    //This method is used to get the integrator's AccountsHandler using their Account ID.
+    //Their Account ID would the the phone number they registered to use  the Xente API with.
     public JSONObject getAccountByID(String accountID) throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
+        JSONObject transaction = transactionRequest;
 
         //Attain the URL with which to perform this function.
         URLConstants urlconstants = new URLConstants(credentials, transaction);

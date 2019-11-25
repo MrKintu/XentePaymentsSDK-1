@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-import Xente.Xente;
+import XentePayments.Xente;
 import org.json.JSONException;
 import org.json.JSONObject;
 

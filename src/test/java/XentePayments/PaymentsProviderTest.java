@@ -6,16 +6,16 @@
  * Thank you.
  */
 
-package Xente;
+package XentePayments;
 
-import Xente.Components.TransactionsHandler;
+import XentePayments.Components.PaymentsProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-//Test to create a sample transaction.
-class CreateTransactionTest {
+//Test to view Payment providers available.
+class PaymentsProviderTest {
     public static void main(String[] args) throws JSONException, IOException {
         //Test credentials object.
         JSONObject credentials = new JSONObject();
@@ -37,7 +37,7 @@ class CreateTransactionTest {
         transaction.put("metadata", "More information about TransactionsHandler here");
 
         //Invoke method.
-        TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
-        transactionsHandler.createTransaction();
+        PaymentsProvider paymentsProvider = new PaymentsProvider(credentials, transaction);
+        paymentsProvider.getPaymentProviders();
     }
 }

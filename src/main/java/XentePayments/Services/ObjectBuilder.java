@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.Services;
+package XentePayments.Services;
 
 public class ObjectBuilder {
     //Declare the variables to be accessed globally & locally.

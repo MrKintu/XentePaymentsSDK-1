@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.Services;
+package XentePayments.Services;
 
 import okhttp3.Authenticator;
 import okhttp3.Request;
@@ -17,12 +17,15 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.IOException;
 
+//This class is used to re-authenticate the user in case the HTTP Response Code is < than 400.
 @EnableAsync
 public class AuthenticateUtil implements Authenticator {
+    //Create Objects to be used throughout the class.
     private static JSONObject credentialsObject;
     private static JSONObject transactionObject;
 
     public AuthenticateUtil(JSONObject credentialsObject, JSONObject transactionObject) {
+        //Initialise objects.
         AuthenticateUtil.credentialsObject = credentialsObject;
         AuthenticateUtil.transactionObject = transactionObject;
     }

@@ -6,10 +6,10 @@
  * Thank you.
  */
 
-package Xente.Components;
+package XentePayments.Components;
 
-import Xente.Services.GETRequestClient;
-import Xente.Services.URLConstants;
+import XentePayments.Services.GETRequestClient;
+import XentePayments.Services.URLConstants;
 import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
@@ -19,17 +19,19 @@ import java.io.IOException;
 public class PaymentsProvider {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
-    private static JSONObject credentialsObject, transactionObject;
+    private static JSONObject credentialsObject, transactionRequest;
 
     //Class Constructor.
-    public PaymentsProvider(JSONObject credentialsObject, JSONObject transactionObject) {
+    public PaymentsProvider(JSONObject credentialsObject, JSONObject transactionRequest) {
+        //Initialise objects.
         PaymentsProvider.credentialsObject = credentialsObject;
-        PaymentsProvider.transactionObject = transactionObject;
+        PaymentsProvider.transactionRequest = transactionRequest;
     }
 
+    //This method is used to list all the payment providers available through the Xente API.
     public JSONObject getPaymentProviders() throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
+        JSONObject transaction = transactionRequest;
 
         //Declare the URL to be used.
         URLConstants urlconstants = new URLConstants(credentials, transaction);

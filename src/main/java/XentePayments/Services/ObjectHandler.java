@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.Services;
+package XentePayments.Services;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +21,7 @@ public class ObjectHandler {
 
     //Class Constructor
     public ObjectHandler(JSONObject credentials, JSONObject transaction) {
+        //Initialise objects and methods.
         ObjectHandler.credentialsObject = credentials;
         ObjectHandler.transactionObject = transaction;
         authenticationObject();

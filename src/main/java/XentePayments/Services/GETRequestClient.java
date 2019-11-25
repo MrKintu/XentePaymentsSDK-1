@@ -6,7 +6,7 @@
  * Thank you.
  */
 
-package Xente.Services;
+package XentePayments.Services;
 
 import okhttp3.*;
 import org.json.JSONException;
@@ -19,12 +19,13 @@ import java.util.*;
 
 @Async
 public class GETRequestClient {
-    //Declare the variables to be accessed globally & locally.
+    //Declare the object variables to be accessed globally & locally.
     public JSONObject responseBody;
     private static JSONObject credentialsObject, transactionObject;
 
     //Class Constructor.
     public GETRequestClient(JSONObject credentialsObject, JSONObject transactionObject) {
+        //Initialise objects.
         GETRequestClient.credentialsObject = credentialsObject;
         GETRequestClient.transactionObject = transactionObject;
     }

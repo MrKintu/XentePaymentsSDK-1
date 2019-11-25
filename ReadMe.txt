@@ -1,9 +1,9 @@
-This is a guide on how to use the Xente Java SDK.
+This is a guide on how to use the XentePayments Java SDK.
 
 - The SDK is divided into two main parts: the Components and the Services.
 - The SDK user shall mainly interact with the Components package and the Services package shall run in the background.
-- The Xente package takes in two JSON files as parameters for the SDK to work: Credentials JSON File & Transaction JSON File.
-- The Credentials JSON has information about the integrator's Xente log in while the Transaction JSON contains information
+- The XentePayments package takes in two JSON files as parameters for the SDK to work: Credentials JSON File & Transaction JSON File.
+- The Credentials JSON has information about the integrator's XentePayments log in while the Transaction JSON contains information
     about the transaction that the user would like to perform.
 
 - The Credentials JSON looks as such:
@@ -27,18 +27,18 @@ This is a guide on how to use the Xente Java SDK.
     "metadata": "More information about transaction here"
 }
 
-- The Services package contains the logic to generate bearer tokens (that grant authority to the Xente API) in the
+- The Services package contains the logic to generate bearer tokens (that grant authority to the XentePayments API) in the
     TokenHandler class.
 - The Services package also contains logic to manipulate the data in the JSON files in the ObjectHandler class.
-    It it highly important that the integrator passes the JSON files correctly to the Xente instance, with the
+    It it highly important that the integrator passes the JSON files correctly to the XentePayments instance, with the
     Credentials JSON passed first followed by the Transaction JSON file. This is further shown in a code snippet below.
 - The Services package also contains logic to handle the assignment of the various URLs to be called within the
     URLConstants class.
-- The Services package has the logic to perform all GET requests from the Xente API within the GETRequestClient class.
-- The Services package has the logic to perform all POST requests to the Xente API within the POSTRequestClient class.
+- The Services package has the logic to perform all GET requests from the XentePayments API within the GETRequestClient class.
+- The Services package has the logic to perform all POST requests to the XentePayments API within the POSTRequestClient class.
 
-> Invoke an instance of the Xente package as follows:
-    Xente xente = new Xente(credentials, transaction);
+> Invoke an instance of the XentePayments package as follows:
+    XentePayments xente = new XentePayments(credentials, transaction);
 
 - From this the integrator can now use the object to perform various methods within the Components package through
     accessing the various component objects already created in the class constructor. Below is how it can be done:
@@ -47,7 +47,7 @@ This is a guide on how to use the Xente Java SDK.
     String accountID = "256784378515";
     xente.accountsHandler.getAccountByID(accountID);
 
-> The integrator can also check to see which payment providers are available to use on the Xente platform.
+> The integrator can also check to see which payment providers are available to use on the XentePayments platform.
     xente.paymentsProvider.getPaymentProviders();
 
 > The integrator can also create a new transaction
