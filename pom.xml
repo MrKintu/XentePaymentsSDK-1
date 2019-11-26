@@ -17,7 +17,7 @@
     <name>XentePayments</name>
     <version>1.0.1</version>
     <description>This is the XentePayments SDK in Java Library.</description>
-    <url>https://dkintu@bitbucket.org/dkintu/xente_java_sdk</url>
+    <url>https://dkintu@bitbucket.org/dkintu/xentepaymentssdk</url>
 
     <licenses>
         <license>
@@ -36,9 +36,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://bitbucket.org/dkintu/xente_java_sdk.git</connection>
-        <developerConnection>scm:git:ssh://bitbucket.org:dkintu/xente_java_sdk.git</developerConnection>
-        <url>https://dkintu@bitbucket.org/dkintu/xente_java_sdk</url>
+        <connection>scm:git:git://bitbucket.org/dkintu/xentepaymentssdk.git</connection>
+        <developerConnection>scm:git:ssh://bitbucket.org:dkintu/xentepaymentssdk.git</developerConnection>
+        <url>https://dkintu@bitbucket.org/dkintu/xentepaymentssdk</url>
     </scm>
 
     <distributionManagement>
