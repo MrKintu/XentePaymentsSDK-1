@@ -1,0 +1,11 @@
+XentePayments\Services\POSTRequestClient.class
+XentePayments\Services\AuthenticateUtil.class
+XentePayments\Services\ObjectBuilder.class
+XentePayments\Services\URLConstants.class
+XentePayments\Services\GETRequestClient.class
+XentePayments\Components\PaymentProviders.class
+XentePayments\Services\TokenHandler.class
+XentePayments\Services\ObjectHandler.class
+XentePayments\Xente.class
+XentePayments\Components\AccountsHandler.class
+XentePayments\Components\TransactionsHandler.class
