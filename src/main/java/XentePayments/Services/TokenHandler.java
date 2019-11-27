@@ -34,7 +34,7 @@ public class TokenHandler {
     String createToken() throws IOException {
         //Create local variables to be used within the method.
         JSONObject credentials = credentialsObject;
-        CredentialsObjectHandler credentialsObjectHandler = new CredentialsObjectHandler(credentials);
+        ObjectHandler objectHandler = new ObjectHandler(credentials);
         URLConstants urlconstants = new URLConstants(credentials);
 
         //Create custom date format for Xente API.
@@ -43,7 +43,7 @@ public class TokenHandler {
 
         //Build header section to be sent to the Xente API.
         Headers.Builder builder = new Headers.Builder();
-        builder.add("X-ApiAuth-ApiKey", credentialsObjectHandler.apiKey);
+        builder.add("X-ApiAuth-ApiKey", objectHandler.apiKey);
         builder.add("X-Date", simpleDateFormat.format(new Date()));
         builder.add("X-Correlation-ID", String.valueOf(new Date().getTime()));
 

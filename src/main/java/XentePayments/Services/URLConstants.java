@@ -31,8 +31,8 @@ public class URLConstants {
         JSONObject credentials = credentialsObject;
 
         //Determine the domain to be used.
-        CredentialsObjectHandler credentialsObjectHandler = new CredentialsObjectHandler(credentials);
-        String mode = credentialsObjectHandler.mode;
+        ObjectHandler objectHandler = new ObjectHandler(credentials);
+        String mode = objectHandler.mode;
         String domain;
         if (mode.equals("sandbox"))
             { domain = baseSandboxDomain; }

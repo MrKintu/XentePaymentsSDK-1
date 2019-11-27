@@ -40,7 +40,7 @@ public class Xente {
         new AccountsHandler(credentialsObject);
         new PaymentsProvider(credentialsObject);
         new TransactionsHandler(credentialsObject);
-        new CredentialsObjectHandler(credentialsObject);
+        new ObjectHandler(credentialsObject);
         new POSTRequestClient(credentialsObject);
         new URLConstants(credentialsObject);
         new TokenHandler(credentialsObject);

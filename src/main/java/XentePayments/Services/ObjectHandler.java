@@ -13,16 +13,16 @@ import org.json.JSONObject;
 import org.springframework.scheduling.annotation.Async;
 
 @Async
-public class CredentialsObjectHandler {
+public class ObjectHandler {
     //Declare the variables to be accessed globally & locally.
     public String apiKey, password, mode, paymentProvider, amount, message, customerID, customerPhone, customerEmail,
             customerReference, metadata, batchID, requestID;
     private static JSONObject credentialsObject;
 
     //Class Constructor
-    public CredentialsObjectHandler(JSONObject credentials) {
+    public ObjectHandler(JSONObject credentials) {
         //Initialise objects and methods.
-        CredentialsObjectHandler.credentialsObject = credentials;
+        ObjectHandler.credentialsObject = credentials;
         authenticationObject();
     }
 

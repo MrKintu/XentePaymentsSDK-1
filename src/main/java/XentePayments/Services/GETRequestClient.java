@@ -34,7 +34,7 @@ public class GETRequestClient {
     public JSONObject GETMethod(String url) throws IOException {
         //Create local variables to be used.
         JSONObject credentials = credentialsObject;
-        CredentialsObjectHandler credentialsObjectHandler = new CredentialsObjectHandler(credentials);
+        ObjectHandler objectHandler = new ObjectHandler(credentials);
         TokenHandler tokenHandler = new TokenHandler(credentials);
         String bearerToken = tokenHandler.bearerToken;
 
@@ -52,7 +52,7 @@ public class GETRequestClient {
 
         //Build header section to be sent to the Xente API.
         Headers.Builder builder = new Headers.Builder();
-        builder.add("X-ApiAuth-ApiKey", credentialsObjectHandler.apiKey);
+        builder.add("X-ApiAuth-ApiKey", objectHandler.apiKey);
         builder.add("X-Date", simpleDateFormat.format(new Date()));
         builder.add("X-Correlation-ID", String.valueOf(new Date().getTime()));
         builder.add("Authorization", "Bearer "+bearerToken);
