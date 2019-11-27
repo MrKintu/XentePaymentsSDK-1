@@ -40,11 +40,11 @@ class XenteTest {
 //        String accountID = "256784378515";
 //        xente.accountsHandler.getAccountByID(accountID);
 
-        //Invoke method to list payment providers.
-        xente.paymentsProvider.getPaymentProviders();
+//        //Invoke method to list payment providers.
+//        xente.paymentProviders.getPaymentProviders();
 
-//        //Invoke method to create transaction.
-//        xente.transactionsHandler.createTransaction(transaction);
+        //Invoke method to create transaction.
+        xente.transactionsHandler.createTransaction(transaction);
 
 //        //Invoke method to get a transaction using the transaction ID.
 //        String transactionID = "631034D3F96C441085FA7D010ACB7194-256784378515";

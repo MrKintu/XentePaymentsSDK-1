@@ -9,7 +9,7 @@
 package XentePayments;
 
 import XentePayments.Components.AccountsHandler;
-import XentePayments.Components.PaymentsProvider;
+import XentePayments.Components.PaymentProviders;
 import XentePayments.Components.TransactionsHandler;
 import XentePayments.Services.*;
 import org.json.JSONObject;
@@ -21,24 +21,22 @@ import java.io.IOException;
 public class Xente {
     //Create object Variables to be accessed locally and globally within the SDK.
     private static JSONObject credentialsObject;
-//    private static JSONObject transactionRequest;
     public final AccountsHandler accountsHandler;
-    public final PaymentsProvider paymentsProvider;
+    public final PaymentProviders paymentProviders;
     public final TransactionsHandler transactionsHandler;
 
     public Xente(JSONObject credentialsObject) {
         //Initialise object variables.
         Xente.credentialsObject = credentialsObject;
-//        Xente.transactionRequest = transactionRequest;
         accountsHandler = new AccountsHandler(credentialsObject);
-        paymentsProvider = new PaymentsProvider(credentialsObject);
+        paymentProviders = new PaymentProviders(credentialsObject);
         transactionsHandler = new TransactionsHandler(credentialsObject);
     }
 
     public static void main(String[] args) throws IOException {
         //Assign objects to the classes within the SDK.
         new AccountsHandler(credentialsObject);
-        new PaymentsProvider(credentialsObject);
+        new PaymentProviders(credentialsObject);
         new TransactionsHandler(credentialsObject);
         new ObjectHandler(credentialsObject);
         new POSTRequestClient(credentialsObject);

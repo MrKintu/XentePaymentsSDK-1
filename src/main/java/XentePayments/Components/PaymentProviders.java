@@ -16,15 +16,15 @@ import org.springframework.scheduling.annotation.Async;
 import java.io.IOException;
 
 @Async
-public class PaymentsProvider {
+public class PaymentProviders {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
     private static JSONObject credentialsObject;
 
     //Class Constructor.
-    public PaymentsProvider(JSONObject credentialsObject) {
+    public PaymentProviders(JSONObject credentialsObject) {
         //Initialise objects.
-        PaymentsProvider.credentialsObject = credentialsObject;
+        PaymentProviders.credentialsObject = credentialsObject;
     }
 
     //This method is used to list all the payment providers available through the Xente API.

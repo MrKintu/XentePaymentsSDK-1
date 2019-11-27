@@ -8,7 +8,7 @@
 
 package XentePayments;
 
-import XentePayments.Components.PaymentsProvider;
+import XentePayments.Components.PaymentProviders;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +24,7 @@ class PaymentsProviderTest {
         credentials.put("mode", "sandbox");
 
         //Invoke method.
-        PaymentsProvider paymentsProvider = new PaymentsProvider(credentials);
-        paymentsProvider.getPaymentProviders();
+        PaymentProviders paymentProviders = new PaymentProviders(credentials);
+        paymentProviders.getPaymentProviders();
     }
 }

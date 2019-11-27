@@ -48,7 +48,7 @@ This is a guide on how to use the XentePayments Java SDK.
     xente.accountsHandler.getAccountByID(accountID);
 
 > The integrator can also check to see which payment providers are available to use on the XentePayments platform.
-    xente.paymentsProvider.getPaymentProviders();
+    xente.paymentProviders.getPaymentProviders();
 
 > The integrator can also create a new transaction
     xente.transactionsHandler.createTransaction();
