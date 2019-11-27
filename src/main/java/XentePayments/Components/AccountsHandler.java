@@ -19,27 +19,25 @@ import java.io.IOException;
 public class AccountsHandler {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
-    private static JSONObject credentialsObject, transactionRequest;
+    private static JSONObject credentialsObject;
 
     //Class Constructor
-    public AccountsHandler(JSONObject credentialsObject, JSONObject transactionRequest) {
+    public AccountsHandler(JSONObject credentialsObject) {
         //Initialise objects.
         AccountsHandler.credentialsObject = credentialsObject;
-        AccountsHandler.transactionRequest = transactionRequest;
     }
 
     //This method is used to get the integrator's AccountsHandler using their Account ID.
     //Their Account ID would the the phone number they registered to use  the Xente API with.
     public JSONObject getAccountByID(String accountID) throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionRequest;
 
         //Attain the URL with which to perform this function.
-        URLConstants urlconstants = new URLConstants(credentials, transaction);
+        URLConstants urlconstants = new URLConstants(credentials);
         final String url = urlconstants.accountURL + "/" + accountID;
 
         //Perform GET Method to receive a response body from the Xente API.
-        GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
+        GETRequestClient getRequestClient = new GETRequestClient(credentials);
         getRequestClient.GETMethod(url);
 
         //Assign the response body to the local variable.

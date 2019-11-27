@@ -16,25 +16,23 @@ public class URLConstants {
     //Declare the variables used
     private static final String baseDomain = "api.Xente.co";
     private static final String baseSandboxDomain = "sandbox." + baseDomain;
-    private static JSONObject credentialsObject, transactionObject;
+    private static JSONObject credentialsObject;
     public String baseUrl, authURL, transactionURL, accountURL, paymentProviderURL;
 
     //Class Constructor
-    public URLConstants(JSONObject credentialsObject, JSONObject transactionObject) {
+    public URLConstants(JSONObject credentialsObject) {
         //Initialise the objects.
         URLConstants.credentialsObject = credentialsObject;
-        URLConstants.transactionObject = transactionObject;
         getURLs();
     }
 
     //Determine the type of domain
     private String getURLs() {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
 
         //Determine the domain to be used.
-        ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
-        String mode = objectHandler.mode;
+        CredentialsObjectHandler credentialsObjectHandler = new CredentialsObjectHandler(credentials);
+        String mode = credentialsObjectHandler.mode;
         String domain;
         if (mode.equals("sandbox"))
             { domain = baseSandboxDomain; }

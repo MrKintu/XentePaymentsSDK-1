@@ -34,17 +34,17 @@ class XenteTest {
         transaction.put("metadata", "More information about TransactionsHandler here");
 
         //Create Xente Object.
-        Xente xente = new Xente(credentials, transaction);
+        Xente xente = new Xente(credentials);
 
 //        //Invoke method to check account details.
 //        String accountID = "256784378515";
 //        xente.accountsHandler.getAccountByID(accountID);
 
-//        //Invoke method to list payment providers.
-//        xente.paymentsProvider.getPaymentProviders();
+        //Invoke method to list payment providers.
+        xente.paymentsProvider.getPaymentProviders();
 
 //        //Invoke method to create transaction.
-//        xente.transactionsHandler.createTransaction();
+//        xente.transactionsHandler.createTransaction(transaction);
 
 //        //Invoke method to get a transaction using the transaction ID.
 //        String transactionID = "631034D3F96C441085FA7D010ACB7194-256784378515";

@@ -37,7 +37,7 @@ class CreateTransactionTest {
         transaction.put("metadata", "More information about TransactionsHandler here");
 
         //Invoke method.
-        TransactionsHandler transactionsHandler = new TransactionsHandler(credentials, transaction);
-        transactionsHandler.createTransaction();
+        TransactionsHandler transactionsHandler = new TransactionsHandler(credentials);
+        transactionsHandler.createTransaction(transaction);
     }
 }

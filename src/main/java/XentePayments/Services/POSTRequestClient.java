@@ -21,23 +21,21 @@ import java.util.*;
 public class POSTRequestClient {
     //Declare the object variables to be accessed globally & locally.
     public JSONObject responseBody;
-    private static JSONObject credentialsObject, transactionObject;
+    private static JSONObject credentialsObject;
 
     //Class Constructor.
-    public POSTRequestClient(JSONObject credentialsObject, JSONObject transactionObject) {
+    public POSTRequestClient(JSONObject credentialsObject) {
         //Initialise objects.
         POSTRequestClient.credentialsObject = credentialsObject;
-        POSTRequestClient.transactionObject = transactionObject;
     }
 
     // Create a Http object for making POST HTTP request to Xente API.
     //It takes in the Respective URL as parameters.
-    public JSONObject POSTMethod(String url) throws IOException {
+    public JSONObject POSTMethod(JSONObject transaction, String url) throws IOException {
         //Create local variables to be used.
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
-        ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
-        TokenHandler tokenHandler = new TokenHandler(credentials, transaction);
+        CredentialsObjectHandler credentialsObjectHandler = new CredentialsObjectHandler(credentials);
+        TokenHandler tokenHandler = new TokenHandler(credentials);
         String bearerToken = tokenHandler.bearerToken;
 
         //Determine whether bearerToken is available or not.
@@ -54,7 +52,7 @@ public class POSTRequestClient {
 
         //Build header section to be sent to the Xente API.
         Headers.Builder builder = new Headers.Builder();
-        builder.add("X-ApiAuth-ApiKey", objectHandler.apiKey);
+        builder.add("X-ApiAuth-ApiKey", credentialsObjectHandler.apiKey);
         builder.add("X-Date", simpleDateFormat.format(new Date()));
         builder.add("X-Correlation-ID", String.valueOf(new Date().getTime()));
         builder.add("Authorization", "Bearer "+bearerToken);
@@ -71,7 +69,7 @@ public class POSTRequestClient {
 
         //Perform POST Method to Xente API.
         OkHttpClient.Builder okbuilder = new OkHttpClient.Builder();
-        okbuilder.authenticator(new AuthenticateUtil(credentials, transaction));
+        okbuilder.authenticator(new AuthenticateUtil(credentials));
         OkHttpClient client = okbuilder.build();
         Request requestBody = new Request.Builder()
                 .post(RequestBody.create(MediaType.parse("application/json"), transaction.toString()))

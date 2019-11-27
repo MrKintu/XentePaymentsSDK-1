@@ -20,28 +20,26 @@ import java.io.IOException;
 public class TransactionsHandler {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
-    private static JSONObject credentialsObject, transactionRequest;
+    private static JSONObject credentialsObject;
 
     //Class constructor.
-    public TransactionsHandler(JSONObject credentialsObject, JSONObject transactionRequest) {
+    public TransactionsHandler(JSONObject credentialsObject) {
         //Initialise objects.
         TransactionsHandler.credentialsObject = credentialsObject;
-        TransactionsHandler.transactionRequest = transactionRequest;
     }
 
     //This method is used to create a new Transaction.
     //It calls the POSTRequestClient to create a new transaction with Xente.
-    public JSONObject createTransaction() throws IOException {
+    public JSONObject createTransaction(JSONObject transaction) throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionRequest;
 
         //Attain the URL with which to perform this function.
-        URLConstants urlconstants = new URLConstants(credentials, transaction);
+        URLConstants urlconstants = new URLConstants(credentials);
         final String url = urlconstants.transactionURL;
 
         //Perform POST Method to send Transactions Request JSON object to Xente and receive a response body.
-        POSTRequestClient postRequestClient = new POSTRequestClient(credentials, transaction);
-        postRequestClient.POSTMethod(url);
+        POSTRequestClient postRequestClient = new POSTRequestClient(credentials);
+        postRequestClient.POSTMethod(transaction,url);
 
         //Assign the response body to a local variable.
         responseBody = postRequestClient.responseBody;
@@ -58,7 +56,6 @@ public class TransactionsHandler {
     //It calls the GETRequestClient to retrieve a response from Xente on the status of their Transactions.
     public JSONObject getTransactionByID(String transactionID) throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionRequest;
 
         //Check to see if the transactionID has been passed to this method.
         if(transactionID.isEmpty())
@@ -67,11 +64,11 @@ public class TransactionsHandler {
         //If passed, continue to get Transaction status from Xente.
         else {
             //Attain the URL with which to perform this function.
-            URLConstants urlconstants = new URLConstants(credentials, transaction);
+            URLConstants urlconstants = new URLConstants(credentials);
             final String url = urlconstants.transactionURL + "?transactionId=" + transactionID + "&PageNumber=1&PageSize=1";
 
             //Perform GET Method to receive a response body from the Xente API.
-            GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
+            GETRequestClient getRequestClient = new GETRequestClient(credentials);
             getRequestClient.GETMethod(url);
 
             //Display the responseBody.
@@ -90,7 +87,6 @@ public class TransactionsHandler {
     //It calls the GETRequestClient to retrieve a response from Xente on the status of their Transactions.
     public  JSONObject getRequestByID(String requestID) throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionRequest;
 
         //Check to see if the requestID has been passed to this method.
         if(requestID.isEmpty())
@@ -99,11 +95,11 @@ public class TransactionsHandler {
         //If passed, continue to get Transaction status from Xente.
         else {
             //Attain the URL with which to perform this function.
-            URLConstants urlconstants = new URLConstants(credentials, transaction);
+            URLConstants urlconstants = new URLConstants(credentials);
             final String url = urlconstants.transactionURL + "/Requests/" + requestID;
 
             //Perform GET Method to receive a response body from the Xente API.
-            GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
+            GETRequestClient getRequestClient = new GETRequestClient(credentials);
             getRequestClient.GETMethod(url);
 
             //Display the responseBody.

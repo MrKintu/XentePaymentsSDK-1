@@ -21,30 +21,30 @@ import java.io.IOException;
 public class Xente {
     //Create object Variables to be accessed locally and globally within the SDK.
     private static JSONObject credentialsObject;
-    private static JSONObject transactionRequest;
+//    private static JSONObject transactionRequest;
     public final AccountsHandler accountsHandler;
     public final PaymentsProvider paymentsProvider;
     public final TransactionsHandler transactionsHandler;
 
-    public Xente(JSONObject credentialsObject, JSONObject transactionRequest) {
+    public Xente(JSONObject credentialsObject) {
         //Initialise object variables.
         Xente.credentialsObject = credentialsObject;
-        Xente.transactionRequest = transactionRequest;
-        accountsHandler = new AccountsHandler(credentialsObject, transactionRequest);
-        paymentsProvider = new PaymentsProvider(credentialsObject, transactionRequest);
-        transactionsHandler = new TransactionsHandler(credentialsObject, transactionRequest);
+//        Xente.transactionRequest = transactionRequest;
+        accountsHandler = new AccountsHandler(credentialsObject);
+        paymentsProvider = new PaymentsProvider(credentialsObject);
+        transactionsHandler = new TransactionsHandler(credentialsObject);
     }
 
     public static void main(String[] args) throws IOException {
         //Assign objects to the classes within the SDK.
-        new AccountsHandler(credentialsObject, transactionRequest);
-        new PaymentsProvider(credentialsObject, transactionRequest);
-        new TransactionsHandler(credentialsObject, transactionRequest);
-        new ObjectHandler(credentialsObject, transactionRequest);
-        new POSTRequestClient(credentialsObject, transactionRequest);
-        new URLConstants(credentialsObject, transactionRequest);
-        new TokenHandler(credentialsObject, transactionRequest);
-        new GETRequestClient(credentialsObject, transactionRequest);
-        new AuthenticateUtil(credentialsObject, transactionRequest);
+        new AccountsHandler(credentialsObject);
+        new PaymentsProvider(credentialsObject);
+        new TransactionsHandler(credentialsObject);
+        new CredentialsObjectHandler(credentialsObject);
+        new POSTRequestClient(credentialsObject);
+        new URLConstants(credentialsObject);
+        new TokenHandler(credentialsObject);
+        new GETRequestClient(credentialsObject);
+        new AuthenticateUtil(credentialsObject);
     }
 }

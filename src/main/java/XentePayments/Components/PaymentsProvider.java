@@ -19,26 +19,24 @@ import java.io.IOException;
 public class PaymentsProvider {
     //Declare the variables to be accessed globally & locally.
     public JSONObject responseBody;
-    private static JSONObject credentialsObject, transactionRequest;
+    private static JSONObject credentialsObject;
 
     //Class Constructor.
-    public PaymentsProvider(JSONObject credentialsObject, JSONObject transactionRequest) {
+    public PaymentsProvider(JSONObject credentialsObject) {
         //Initialise objects.
         PaymentsProvider.credentialsObject = credentialsObject;
-        PaymentsProvider.transactionRequest = transactionRequest;
     }
 
     //This method is used to list all the payment providers available through the Xente API.
     public JSONObject getPaymentProviders() throws IOException {
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionRequest;
 
         //Declare the URL to be used.
-        URLConstants urlconstants = new URLConstants(credentials, transaction);
+        URLConstants urlconstants = new URLConstants(credentials);
         final String url = urlconstants.paymentProviderURL;
 
         //Call GET Method in GETRequestClient and retrieve response body.
-        GETRequestClient getRequestClient = new GETRequestClient(credentials, transaction);
+        GETRequestClient getRequestClient = new GETRequestClient(credentials);
         getRequestClient.GETMethod(url);
 
         //Assign the response body to a local variable.

@@ -21,13 +21,12 @@ import java.util.*;
 public class TokenHandler {
     //Declare the variables to be accessed globally & locally.
     public String bearerToken;
-    private static JSONObject credentialsObject, transactionObject;
+    private static JSONObject credentialsObject;
 
     //Initiate Class Constructor
-    public TokenHandler(JSONObject credentialsObject, JSONObject transactionObject) throws IOException {
+    public TokenHandler(JSONObject credentialsObject) throws IOException {
         //Initialise objects and methods.
         TokenHandler.credentialsObject = credentialsObject;
-        TokenHandler.transactionObject = transactionObject;
         createToken();
     }
 
@@ -35,9 +34,8 @@ public class TokenHandler {
     String createToken() throws IOException {
         //Create local variables to be used within the method.
         JSONObject credentials = credentialsObject;
-        JSONObject transaction = transactionObject;
-        ObjectHandler objectHandler = new ObjectHandler(credentials, transaction);
-        URLConstants urlconstants = new URLConstants(credentials, transaction);
+        CredentialsObjectHandler credentialsObjectHandler = new CredentialsObjectHandler(credentials);
+        URLConstants urlconstants = new URLConstants(credentials);
 
         //Create custom date format for Xente API.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
@@ -45,7 +43,7 @@ public class TokenHandler {
 
         //Build header section to be sent to the Xente API.
         Headers.Builder builder = new Headers.Builder();
-        builder.add("X-ApiAuth-ApiKey", objectHandler.apiKey);
+        builder.add("X-ApiAuth-ApiKey", credentialsObjectHandler.apiKey);
         builder.add("X-Date", simpleDateFormat.format(new Date()));
         builder.add("X-Correlation-ID", String.valueOf(new Date().getTime()));
 

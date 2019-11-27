@@ -22,17 +22,15 @@ import java.io.IOException;
 public class AuthenticateUtil implements Authenticator {
     //Create Objects to be used throughout the class.
     private static JSONObject credentialsObject;
-    private static JSONObject transactionObject;
 
-    public AuthenticateUtil(JSONObject credentialsObject, JSONObject transactionObject) {
+    public AuthenticateUtil(JSONObject credentialsObject) {
         //Initialise objects.
         AuthenticateUtil.credentialsObject = credentialsObject;
-        AuthenticateUtil.transactionObject = transactionObject;
     }
 
     @Override
     public Request authenticate(Route route, Response response) throws IOException {
-        TokenHandler tokenHandler = new TokenHandler(credentialsObject, transactionObject);
+        TokenHandler tokenHandler = new TokenHandler(credentialsObject);
         tokenHandler.createToken();
         String bearerToken = tokenHandler.bearerToken;
 

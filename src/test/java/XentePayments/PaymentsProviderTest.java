@@ -23,21 +23,8 @@ class PaymentsProviderTest {
         credentials.put("password", "Demo123456");
         credentials.put("mode", "sandbox");
 
-        //Test transaction object.
-        JSONObject transaction = new JSONObject();
-        transaction.put("paymentProvider", "MTNMOBILEMONEYUG");
-        transaction.put("amount", "800");
-        transaction.put("message", "Demo Request");
-        transaction.put("customerId", "256778418592");
-        transaction.put("customerPhone", "256778418592");
-        transaction.put("customerEmail", "d-kintu@outlook.com");
-        transaction.put("customerReference", "256778418592");
-        transaction.put("batchId", "Batch001");
-        transaction.put("requestId", String.valueOf(Math.random()));
-        transaction.put("metadata", "More information about TransactionsHandler here");
-
         //Invoke method.
-        PaymentsProvider paymentsProvider = new PaymentsProvider(credentials, transaction);
+        PaymentsProvider paymentsProvider = new PaymentsProvider(credentials);
         paymentsProvider.getPaymentProviders();
     }
 }
