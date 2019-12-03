@@ -1,6 +1,5 @@
 XentePayments\Services\POSTRequestClient.class
 XentePayments\Services\AuthenticateUtil.class
-XentePayments\Services\ObjectBuilder.class
 XentePayments\Services\URLConstants.class
 XentePayments\Services\GETRequestClient.class
 XentePayments\Components\PaymentProviders.class
