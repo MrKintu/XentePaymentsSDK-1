@@ -1,3 +1,6 @@
+Hosted on:
+https://oss.sonatype.org/service/local/staging/deployByRepositoryId/orgbitbucketdkintu-1001/org/bitbucket/dkintu/XentePaymentsSDK/1.0.1-SNAP
+
 This is a guide on how to use the XentePayments Java SDK.
 
 - The SDK is divided into two main parts: the Components and the Services.

@@ -16,11 +16,11 @@
         <version>2.2.2.BUILD-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.bitbucket.dkintu</groupId>
-    <artifactId>XentePayments</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-    <name>XentePayments</name>
-    <description>This is the XentePayments SDK in Java Library.</description>
+    <groupId>org.bitbucket.dkintu</groupId>
+    <artifactId>XentePaymentsSDK</artifactId>
+    <version>1.0.1-SNAPSHOTSDK</version>
+    <name>XentePaymentsSDK</name>
+    <description>This is the Xente Payments SDK written in Java.</description>
     <url>https://dkintu@bitbucket.org/dkintu/xentepaymentssdk</url>
 
     <licenses>
