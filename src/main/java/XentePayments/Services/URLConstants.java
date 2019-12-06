@@ -14,10 +14,10 @@ import org.springframework.scheduling.annotation.Async;
 @Async
 public class URLConstants {
     //Declare the variables used
-    private static final String baseDomain = "api.Xente.co";
-    private static final String baseSandboxDomain = "sandbox." + baseDomain;
+    private static final String productionURL = "https://payments.xente.co/api/v1";
+    private static final String sandboxURL = "http://34.90.206.233:83/api/v1";
     private static JSONObject credentialsObject;
-    public String baseUrl, authURL, transactionURL, accountURL, paymentProviderURL;
+    public String authURL, transactionURL, accountURL, paymentProviderURL;
 
     //Class Constructor
     public URLConstants(JSONObject credentialsObject) {
@@ -30,31 +30,28 @@ public class URLConstants {
     private String getURLs() {
         JSONObject credentials = credentialsObject;
 
-        //Determine the domain to be used.
+        //Determine the baseUrl to be used.
         ObjectHandler objectHandler = new ObjectHandler(credentials);
         String mode = objectHandler.mode;
-        String domain;
+        String baseUrl;
         if (mode.equals("sandbox"))
-            { domain = baseSandboxDomain; }
+            { baseUrl = sandboxURL; }
         else
-            { domain = baseDomain; }
+            { baseUrl = productionURL; }
 
-        //Assign the base URL.
-        baseUrl = "https://" + domain + "/api/v1";
+        //This is the URL called to authenticate a Xente Payments API user.
+        authURL = baseUrl + "/Auth/login";
 
-        // `${baseUrl}/Auth/login`; Will be used instead
-        authURL = "http://34.90.206.233:83/api/v1/Auth/login";
+        //This is the URL used to handle transactions.
+        transactionURL = baseUrl + "/transactions";
 
-        // `${baseUrl}/transactions`; Will be used instead
-        transactionURL = "http://34.90.206.233:83/api/v1/transactions";
+        //This is the URL used to handle the Account details.
+        accountURL = baseUrl + "/Accounts";
 
-        // This will be `${baseUrl}/Accounts`
-        accountURL = "http://34.90.206.233:83/api/v1/Accounts";
-
-        // This will be `${baseUrl}/paymentproviders`
-        paymentProviderURL = "http://34.90.206.233:83/api/v1/PaymentProviders/MOBILEMONEYUG/providerItems?pageSize=20&pageNumber=1";
+        //This is the URL used to find out the Payment Providers.
+        paymentProviderURL = baseUrl + "/PaymentProviders/MOBILEMONEYUG/providerItems?pageSize=20&pageNumber=1";
 
         //return the URL values.
-        return baseUrl + authURL + transactionURL + accountURL + paymentProviderURL;
+        return authURL + transactionURL + accountURL + paymentProviderURL;
     }
 }
