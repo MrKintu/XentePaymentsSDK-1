@@ -1,5 +1,20 @@
 This is a guide on how to use the XentePayments Java SDK.
 
+- Before getting started, add these dependencies to your pom.xml file:
+i) Add this to access JSON Files
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20190722</version>
+    </dependency>
+
+ii) Add this to access the Xente Payments SDK
+    <dependency>
+        <groupId>org.bitbucket.dkintu</groupId>
+        <artifactId>XentePaymentsSDK</artifactId>
+        <version>1.0.1-SNAPSHOTSDK</version>
+    </dependency>
+
 - The SDK is divided into two main parts: the Components and the Services.
 - The SDK user shall mainly interact with the Components package and the Services package shall run in the background.
 - The XentePayments package takes in one JSON files as a parameter for the SDK to work: Credentials JSON File.
