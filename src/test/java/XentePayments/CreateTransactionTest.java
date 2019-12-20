@@ -26,12 +26,12 @@ class CreateTransactionTest {
         //Test transaction object.
         JSONObject transaction = new JSONObject();
         transaction.put("paymentProvider", "MTNMOBILEMONEYUG");
-        transaction.put("amount", "2000");
+        transaction.put("amount", "1000");
         transaction.put("message", "Demo Request");
         transaction.put("customerId", "256778418592");
         transaction.put("customerPhone", "256784378515");
         transaction.put("customerEmail", "d-kintu@outlook.com");
-        transaction.put("customerReference", "256784378515");
+        transaction.put("customerReference", "256784703425");
         transaction.put("batchId", "Batch001");
         transaction.put("requestId", String.valueOf(Math.random()));
         transaction.put("metadata", "More information about TransactionsHandler here");
